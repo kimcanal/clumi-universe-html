@@ -28,9 +28,6 @@
       </header>
 
       <section class="hero" aria-label="클루미유니버스 소개">
-        <div class="hero-media" aria-hidden="true">
-          <img src="./assets/clumi-storefront.jpg" alt="" />
-        </div>
         <div class="hero-inner">
           <div class="hero-content">
             <p class="eyebrow">Hapjeong waffle cafe</p>
@@ -52,8 +49,7 @@
             </div>
           </div>
           <figure class="hero-character">
-            <img src="./assets/clumi-character-room.jpg" alt="따뜻한 조명 아래 서 있는 노란 클루미 캐릭터" />
-            <figcaption>Clumi is waiting for waffles.</figcaption>
+            <img src="./assets/clumi-character-cutout.png" alt="오렌지 배경 앞에 서 있는 노란 클루미 캐릭터" />
           </figure>
           <a class="scroll-cue" href="#space" aria-label="다음 섹션으로 이동">Scroll <span>↓</span></a>
         </div>
@@ -294,5 +290,21 @@
         <a href="https://www.instagram.com/clumi.universe" target="_blank" rel="noreferrer">Instagram</a>
       </nav>
     </main>
+    <script>
+      (() => {
+        const mobileCta = document.querySelector(".mobile-cta");
+        const hero = document.querySelector(".hero");
+
+        if (!mobileCta || !hero) return;
+
+        const updateMobileCta = () => {
+          mobileCta.classList.toggle("is-visible", window.scrollY > hero.offsetHeight * 0.55);
+        };
+
+        updateMobileCta();
+        window.addEventListener("scroll", updateMobileCta, { passive: true });
+        window.addEventListener("resize", updateMobileCta);
+      })();
+    </script>
   </body>
 </html>
