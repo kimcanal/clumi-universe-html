@@ -821,7 +821,7 @@ ul {
 }
 
 /* ===========================
-   Blue Ribbon + Reviews
+   Reviews
    =========================== */
 .reviews {
   background:
@@ -898,28 +898,12 @@ ul {
 
 .reviews .section-title {
   color: var(--color-bg-white);
-  margin-top: 1.25rem;
+  margin-top: 0;
 }
 
 .reviews .section-desc {
   color: rgba(255,255,255,0.68);
   margin-bottom: 1.5rem;
-}
-
-.blueribon-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
-  font-family: var(--font-kr);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 0.55rem 1.2rem;
-  border-radius: var(--radius-full);
-  backdrop-filter: blur(8px);
 }
 
 .review-highlights {
