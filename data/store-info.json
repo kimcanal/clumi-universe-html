@@ -7,6 +7,16 @@
     "weekend": "토·일 10:30 – 23:00",
     "note": "연중무휴"
   },
+  "businessHours": {
+    "weekday": {
+      "open": "09:00",
+      "close": "23:00"
+    },
+    "weekend": {
+      "open": "10:30",
+      "close": "23:00"
+    }
+  },
   "links": {
     "naver": "https://naver.me/F9hNJomf",
     "toss": "https://store.tossplace.com/order/238090",

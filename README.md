@@ -8,7 +8,7 @@
 | --- | --- |
 | `data/featured.json` | 홈페이지 대표 메뉴에 보여줄 토스 메뉴 ID 목록 |
 | `data/reviews.json` | 네이버 리뷰 카드 데이터 |
-| `data/store-info.json` | 주소, 영업시간, 전화번호 |
+| `data/store-info.json` | 주소, 영업시간, 전화번호, 네이버 지도 링크 |
 | `index.html` | 화면 구조와 데이터 렌더링 |
 | `styles.css` | 디자인과 애니메이션 |
 
@@ -27,6 +27,16 @@ node scripts/update-menu.mjs
 ```bash
 node scripts/update-menu.mjs --no-fetch --keep --no-deploy
 ```
+
+## 영업시간과 지도 링크 수정
+
+`data/store-info.json`에서 수정합니다.
+
+- 화면에 보이는 문구: `hours.weekday`, `hours.weekend`, `hours.note`
+- 오늘 영업 상태 계산: `businessHours.weekday`, `businessHours.weekend`
+- 네이버 지도 버튼과 지도 카드 링크: `links.naverMap`
+
+`businessHours`는 `HH:MM` 형식으로 입력합니다.
 
 ## 토스 메뉴 최신화
 

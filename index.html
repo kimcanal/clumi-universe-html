@@ -99,6 +99,8 @@
         <p class="section-desc" style="margin: 0 auto var(--spacing-lg);">클루미유니버스가 자랑하는 프리미엄 디저트를 소개합니다.</p>
       </div>
 
+      <div class="menu-tabs reveal" id="menuTabs" role="tablist" aria-label="대표 메뉴 카테고리"></div>
+
       <!-- JS가 여기에 메뉴 카드를 동적으로 삽입합니다 -->
       <div class="menu-scroller-wrap" id="menuScrollerWrap">
         <button class="scroll-arrow scroll-arrow-prev" id="menuPrev" aria-label="이전">
@@ -234,22 +236,47 @@
           <h2 class="section-title">오시는 길</h2>
           <p class="section-desc">합정역과 상수역 사이, 조용한 골목에 위치하고 있습니다.<br>편안한 발걸음으로 클루미유니버스를 찾아주세요.</p>
 
+          <div class="today-status" id="todayStatus" aria-live="polite">
+            <span class="status-dot"></span>
+            <div>
+              <strong>오늘 영업 정보 확인 중</strong>
+              <span>운영 시간을 불러오고 있습니다.</span>
+            </div>
+          </div>
+
           <div class="info-list" id="storeInfoList">
             <!-- JS가 data/store-info.json 읽어 자동 생성 -->
           </div>
 
           <div style="margin-top: 2rem;">
-            <a href="https://map.naver.com/p/search/클루미유니버스" target="_blank" rel="noopener noreferrer"
+            <a href="https://map.naver.com/p/search/클루미유니버스" target="_blank" rel="noopener noreferrer" data-naver-map-link
               class="btn btn-primary" id="naverMapBtn">네이버 지도 열기</a>
           </div>
         </div>
 
-        <div class="info-card reveal" style="transition-delay: 0.2s; padding:0;">
-          <div class="map-container">
-            <iframe src="https://maps.google.com/maps?q=클루미유니버스&t=&z=16&ie=UTF8&iwloc=&output=embed" frameborder="0"
-              scrolling="no" marginheight="0" marginwidth="0" style="width: 100%; height: 100%; border: none;"></iframe>
+        <a class="naver-map-card reveal" style="transition-delay: 0.2s;"
+          href="https://map.naver.com/p/search/클루미유니버스" target="_blank" rel="noopener noreferrer" data-naver-map-link
+          aria-label="네이버 지도에서 클루미유니버스 보기">
+          <div class="map-preview" aria-hidden="true">
+            <span class="map-road map-road-main"></span>
+            <span class="map-road map-road-sub"></span>
+            <span class="map-block block-1"></span>
+            <span class="map-block block-2"></span>
+            <span class="map-block block-3"></span>
+            <span class="map-pin">
+              <span>CLUMI</span>
+            </span>
           </div>
-        </div>
+          <div class="map-card-body">
+            <span class="eyebrow">Naver Map</span>
+            <h3>클루미유니버스</h3>
+            <p id="naverMapAddress">서울 마포구 독막로8길 21, 1층</p>
+            <div class="map-card-meta">
+              <span>합정역 · 상수역 사이</span>
+              <strong>길찾기 열기</strong>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -262,9 +289,9 @@
       <div class="footer-logo">CLUMI UNIVERSE</div>
       <p id="footerAddress" style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.5); line-height: 1.8;"></p>
       <div class="footer-links">
-        <a href="https://www.instagram.com/clumi.universe/" target="_blank">Instagram</a>
-        <a href="https://map.naver.com/p/search/클루미유니버스" target="_blank">Naver Map</a>
-        <a href="https://store.tossplace.com/order/238090" target="_blank">Toss Order</a>
+        <a href="https://www.instagram.com/clumi.universe/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://map.naver.com/p/search/클루미유니버스" target="_blank" rel="noopener noreferrer" data-naver-map-link>Naver Map</a>
+        <a href="https://store.tossplace.com/order/238090" target="_blank" rel="noopener noreferrer">Toss Order</a>
       </div>
       <p style="opacity: 0.5;">&copy; 2026 Clumi Universe. All rights reserved.</p>
     </div>
@@ -359,6 +386,14 @@
 
     // fetch-toss-menu.mjs 실행 결과 경로 (data/tossplace-menu/238090/menu.json)
     const MENU_JSON_PATH = './data/tossplace-menu/238090/menu.json';
+    const MENU_TABS = [
+      { key: 'featured', label: '추천' },
+      { key: 'waffle', label: '와플' },
+      { key: 'brunch', label: '브런치' },
+      { key: 'coffee', label: '커피' },
+      { key: 'dessert', label: '디저트' },
+      { key: 'drink', label: '음료' }
+    ];
 
     function maskReviewAuthor(author) {
       const chars = Array.from(String(author || '').trim());
@@ -402,6 +437,99 @@
       return String(typeof label === 'string' ? label : label?.name || label?.title || '');
     }
 
+    function formatPrice(value) {
+      const price = Number(value);
+      return Number.isFinite(price) && price > 0 ? `${price.toLocaleString('ko-KR')}원` : '';
+    }
+
+    function normalizeMenuText(item) {
+      return `${item?.categoryTitle || ''} ${item?.categoryTitleEn || ''} ${item?.title || ''}`;
+    }
+
+    function isMenuAvailable(item) {
+      return !item?.state || item.state === 'ON_SALE';
+    }
+
+    function getMenuTabItems(tabKey, allItems, featuredItems) {
+      if (tabKey === 'featured') return featuredItems;
+
+      const matchers = {
+        waffle: item => /와플|벨기에와플/i.test(normalizeMenuText(item)),
+        brunch: item => /브런치/i.test(normalizeMenuText(item)),
+        coffee: item => item?.categoryTitle === '커피',
+        dessert: item => /디저트|케이크|브라우니|쿠키|토르테|파르페|망고캐슬/i.test(normalizeMenuText(item)),
+        drink: item => ['클루미 감정포션', '논커피', '티', '에이드', '병음료'].includes(item?.categoryTitle)
+      };
+
+      const matcher = matchers[tabKey] || (() => true);
+      return allItems
+        .filter(item => isMenuAvailable(item) && matcher(item))
+        .filter(item => getMenuImageSrc(item))
+        .slice(0, 12);
+    }
+
+    function parseClock(value) {
+      const [hour, minute = 0] = String(value || '').split(':').map(Number);
+      if (!Number.isFinite(hour) || !Number.isFinite(minute)) return null;
+      return hour * 60 + minute;
+    }
+
+    function formatClock(minutes) {
+      const hour = Math.floor(minutes / 60);
+      const minute = minutes % 60;
+      return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+    }
+
+    function getSeoulNowParts(date = new Date()) {
+      const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Seoul',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).formatToParts(date).map(part => [part.type, part.value]));
+
+      const hour = Number(parts.hour) === 24 ? 0 : Number(parts.hour);
+      return {
+        weekday: parts.weekday,
+        minutes: hour * 60 + Number(parts.minute)
+      };
+    }
+
+    function renderTodayStatus(storeInfo) {
+      const statusEl = document.getElementById('todayStatus');
+      if (!statusEl) return;
+
+      const { weekday, minutes } = getSeoulNowParts();
+      const isWeekend = weekday === 'Sat' || weekday === 'Sun';
+      const schedule = storeInfo.businessHours?.[isWeekend ? 'weekend' : 'weekday'] || {};
+      const openMinutes = parseClock(schedule.open) ?? (isWeekend ? 630 : 540);
+      const closeMinutes = parseClock(schedule.close) ?? 1380;
+
+      let title = `오늘 ${formatClock(closeMinutes)}까지 영업`;
+      let caption = `${isWeekend ? '주말' : '평일'} ${formatClock(openMinutes)} - ${formatClock(closeMinutes)} · ${storeInfo.hours?.note || '연중무휴'}`;
+      let stateClass = 'is-open';
+
+      if (minutes < openMinutes) {
+        title = `오늘 ${formatClock(openMinutes)} 오픈 예정`;
+        caption = `${formatClock(openMinutes)}부터 와플과 커피를 준비합니다.`;
+        stateClass = 'is-pending';
+      } else if (minutes >= closeMinutes) {
+        title = '오늘 영업 종료';
+        caption = `내일 다시 만나요. 기본 영업시간은 ${formatClock(openMinutes)} - ${formatClock(closeMinutes)}입니다.`;
+        stateClass = 'is-closed';
+      }
+
+      statusEl.classList.remove('is-open', 'is-pending', 'is-closed');
+      statusEl.classList.add(stateClass);
+      statusEl.innerHTML = `
+        <span class="status-dot"></span>
+        <div>
+          <strong>${escapeHtml(title)}</strong>
+          <span>${escapeHtml(caption)}</span>
+        </div>`;
+    }
+
     function syncMenuDrivenImages(items) {
       document.querySelectorAll('[data-menu-image-id]').forEach(img => {
         const item = findMenuItemById(items, img.dataset.menuImageId);
@@ -437,32 +565,70 @@
       }).filter(Boolean);
 
       const menuScroller = document.getElementById('menuScroller');
-      menuScroller.innerHTML = featuredItems.map((item, i) => {
-        // 새 포맷은 imageLocalPath, 구 포맷도 imageLocalPath or localImagePath
-        const imgSrc = getMenuImageSrc(item) || './assets/clumi-waffle.jpg';
-        const name = item.title || '메뉴';
-        const desc = item.description || '';
-        // 새 포맷: categoryTitleEn, 구 포맷: categoryEn
-        const category = item.categoryTitleEn || item.categoryEn || item.categoryTitle || 'Menu';
-        const delay = Number((i * 0.1).toFixed(2));
-        const labels = Array.isArray(item.labels) ? item.labels : [];
-        const isBest = labels.some(label => getLabelName(label).match(/인기|대표|best/i));
-        const isClumiPick = name.match(/에이드|파르페|라떼|포레누아/);
-        return `
-          <article class="menu-card reveal" style="transition-delay:${delay}s;">
-            ${isBest ? '<div class="menu-badge">Best</div>' : ''}
-            <div class="menu-img-wrap">
-              <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(name)}" loading="lazy">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">${escapeHtml(category)}</span>
-              <h3>${escapeHtml(name)}${isClumiPick ? '<span class="clumi-badge">🐰 Clumi\'s Pick</span>' : ''}</h3>
-              ${desc ? `<p>${formatText(desc)}</p>` : ''}
-            </div>
-          </article>`;
-      }).join('');
+      const menuTabs = document.getElementById('menuTabs');
 
-      menuScroller.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+      function activateMenuCards() {
+        menuScroller.querySelectorAll('.reveal').forEach(el => {
+          revealObserver.observe(el);
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            requestAnimationFrame(() => el.classList.add('active'));
+          }
+        });
+      }
+
+      function renderMenuCards(tabKey) {
+        const tabItems = getMenuTabItems(tabKey, allItems, featuredItems);
+        menuScroller.innerHTML = tabItems.map((item, i) => {
+          const imgSrc = getMenuImageSrc(item) || './assets/clumi-waffle.jpg';
+          const name = item.title || '메뉴';
+          const desc = item.description || '';
+          const category = item.categoryTitleEn || item.categoryEn || item.categoryTitle || 'Menu';
+          const price = formatPrice(item.priceValue);
+          const delay = Number((i * 0.06).toFixed(2));
+          const labels = Array.isArray(item.labels) ? item.labels : [];
+          const isBest = labels.some(label => getLabelName(label).match(/인기|대표|best/i));
+          const isClumiPick = name.match(/에이드|파르페|라떼|포레누아/);
+          return `
+            <article class="menu-card reveal" style="transition-delay:${delay}s;">
+              ${isBest ? '<div class="menu-badge">Best</div>' : ''}
+              <div class="menu-img-wrap">
+                <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(name)}" loading="lazy">
+              </div>
+              <div class="menu-info">
+                <span class="eyebrow">${escapeHtml(category)}</span>
+                <div class="menu-title-row">
+                  <h3>${escapeHtml(name)}${isClumiPick ? '<span class="clumi-badge">🐰 Clumi\'s Pick</span>' : ''}</h3>
+                  ${price ? `<strong class="menu-price">${escapeHtml(price)}</strong>` : ''}
+                </div>
+                ${desc ? `<p>${formatText(desc)}</p>` : ''}
+              </div>
+            </article>`;
+        }).join('');
+        activateMenuCards();
+      }
+
+      menuTabs.innerHTML = MENU_TABS.map(tab => `
+        <button type="button" class="menu-tab${tab.key === 'featured' ? ' is-active' : ''}" role="tab"
+          aria-selected="${tab.key === 'featured'}" data-menu-tab="${escapeHtml(tab.key)}">
+          ${escapeHtml(tab.label)}
+        </button>`).join('');
+
+      menuTabs.addEventListener('click', event => {
+        const button = event.target.closest('[data-menu-tab]');
+        if (!button) return;
+
+        menuTabs.querySelectorAll('.menu-tab').forEach(tabButton => {
+          const isActive = tabButton === button;
+          tabButton.classList.toggle('is-active', isActive);
+          tabButton.setAttribute('aria-selected', String(isActive));
+        });
+
+        renderMenuCards(button.dataset.menuTab);
+        menuScroller.scrollTo({ left: 0, behavior: 'smooth' });
+      });
+
+      renderMenuCards('featured');
 
       // ── 5-B. 리뷰 섹션 렌더링 ─────────────────────────────────
       const reviewsGrid = document.getElementById('reviewsGrid');
@@ -482,6 +648,7 @@
       const phoneMarkup = phoneHref
         ? `<a href="tel:${escapeHtml(phoneHref)}" style="color:inherit;text-decoration:none;">${escapeHtml(phone)}</a>`
         : escapeHtml(phone);
+      const naverMapUrl = storeInfo.links?.naverMap || storeInfo.links?.naver || 'https://map.naver.com/p/search/클루미유니버스';
 
       infoList.innerHTML = `
         <div class="info-item">
@@ -502,6 +669,13 @@
             <p>${phoneMarkup}</p>
           </div>
         </div>`;
+
+      renderTodayStatus(storeInfo);
+      document.querySelectorAll('[data-naver-map-link]').forEach(link => {
+        link.href = naverMapUrl;
+      });
+      const naverMapAddress = document.getElementById('naverMapAddress');
+      if (naverMapAddress) naverMapAddress.textContent = storeInfo.address || '서울 마포구 독막로8길 21, 1층';
 
       // 푸터 주소
       document.getElementById('footerAddress').textContent = storeInfo.address;
