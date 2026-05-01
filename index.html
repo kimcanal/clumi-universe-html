@@ -437,11 +437,6 @@
       return String(typeof label === 'string' ? label : label?.name || label?.title || '');
     }
 
-    function formatPrice(value) {
-      const price = Number(value);
-      return Number.isFinite(price) && price > 0 ? `${price.toLocaleString('ko-KR')}원` : '';
-    }
-
     function normalizeMenuText(item) {
       return `${item?.categoryTitle || ''} ${item?.categoryTitleEn || ''} ${item?.title || ''}`;
     }
@@ -584,7 +579,6 @@
           const name = item.title || '메뉴';
           const desc = item.description || '';
           const category = item.categoryTitleEn || item.categoryEn || item.categoryTitle || 'Menu';
-          const price = formatPrice(item.priceValue);
           const delay = Number((i * 0.06).toFixed(2));
           const labels = Array.isArray(item.labels) ? item.labels : [];
           const isBest = labels.some(label => getLabelName(label).match(/인기|대표|best/i));
@@ -597,10 +591,7 @@
               </div>
               <div class="menu-info">
                 <span class="eyebrow">${escapeHtml(category)}</span>
-                <div class="menu-title-row">
-                  <h3>${escapeHtml(name)}${isClumiPick ? '<span class="clumi-badge">🐰 Clumi\'s Pick</span>' : ''}</h3>
-                  ${price ? `<strong class="menu-price">${escapeHtml(price)}</strong>` : ''}
-                </div>
+                <h3>${escapeHtml(name)}${isClumiPick ? '<span class="clumi-badge">🐰 Clumi\'s Pick</span>' : ''}</h3>
                 ${desc ? `<p>${formatText(desc)}</p>` : ''}
               </div>
             </article>`;

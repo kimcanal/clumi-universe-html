@@ -622,32 +622,12 @@ ul {
 
 .menu-info h3 {
   font-size: 1.5rem;
-  margin-bottom: 0;
-  min-width: 0;
+  margin-bottom: 0.5rem;
 }
 
 .menu-info p {
   color: var(--color-text-muted);
   font-size: 0.95rem;
-}
-
-.menu-title-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.9rem;
-  margin-bottom: 0.6rem;
-}
-
-.menu-price {
-  flex: 0 0 auto;
-  padding: 0.32rem 0.62rem;
-  border-radius: var(--radius-full);
-  background: rgba(255, 184, 0, 0.18);
-  color: var(--color-espresso);
-  font-size: 0.92rem;
-  line-height: 1.2;
-  white-space: nowrap;
 }
 
 /* Gallery Section */
@@ -1058,11 +1038,6 @@ ul {
     flex: 0 0 auto;
   }
 
-  .menu-title-row {
-    flex-direction: column;
-    gap: 0.55rem;
-  }
-  
   .gallery-header {
     flex-direction: column;
     align-items: flex-start;
