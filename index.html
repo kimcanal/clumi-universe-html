@@ -11,7 +11,7 @@
   <meta property="og:title" content="클루미유니버스 (CLUMI UNIVERSE)">
   <meta property="og:description" content="합정 골목에 숨겨진 작은 우주. 매일 굽는 리에주 와플과 시그니처 파르페를 만나보세요.">
   <meta property="og:image"
-    content="https://clumi-universe-html.pages.dev/assets/toss-menu/images/031-인기-메뉴-no-1-딸기왕창와플.jpg">
+    content="https://clumi-universe-html.pages.dev/data/tossplace-menu/238090/images/9820365-No.1-딸기왕창와플-9c9762d20b.jpg">
   <meta property="og:type" content="website">
 
   <!-- 파비콘 -->
@@ -88,7 +88,7 @@
   </section>
 
   <!-- ============================================================
-       MENU — data/featured.json + assets/toss-menu/toss-menu.json 으로 렌더링
+       MENU — data/featured.json + data/tossplace-menu/238090/menu.json 으로 렌더링
        ★ 메뉴를 바꾸려면 data/featured.json 의 ID 목록만 수정하세요.
        ============================================================ -->
   <section class="section menu" id="menu">
@@ -154,7 +154,7 @@
           <div class="gallery-overlay"><span>Clumi's Universe</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.2s;">
-          <img src="./assets/toss-menu/images/031-인기-메뉴-no-1-딸기왕창와플.jpg" alt="딸기왕창와플" class="lightbox-trigger">
+          <img src="./data/tossplace-menu/238090/images/9820365-No.1-딸기왕창와플-9c9762d20b.jpg" alt="딸기왕창와플" class="lightbox-trigger">
           <div class="gallery-overlay"><span>딸기왕창와플</span></div>
         </div>
         <div class="gallery-item reveal">
@@ -166,7 +166,7 @@
           <div class="gallery-overlay"><span>Emotion Potion: Windy</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.2s;">
-          <img src="./assets/toss-menu/images/070-케이크-디저트-딸기포레누아.jpg" alt="딸기포레누아" class="lightbox-trigger">
+          <img src="./data/tossplace-menu/238090/images/10641666-딸기포레누아-12e4b312bd.jpg" alt="딸기포레누아" class="lightbox-trigger">
           <div class="gallery-overlay"><span>딸기포레누아</span></div>
         </div>
       </div>
@@ -180,9 +180,9 @@
   <section class="section reviews" id="reviews">
     <div class="section-inner reviews-showcase">
       <div class="reviews-visual">
-        <img src="./assets/toss-menu/images/012-벨기에와플-클래식-와플.jpg" alt="클루미유니버스 클래식 리에주 와플"
+        <img src="./data/tossplace-menu/238090/images/7735791-클래식-와플-b6d73bbc24.jpg" alt="클루미유니버스 클래식 리에주 와플"
           class="reviews-visual-main lightbox-trigger" loading="lazy">
-        <img src="./assets/toss-menu/images/014-벨기에와플-블루베리-크림치즈-와플.jpg" alt="클루미유니버스 블루베리 크림치즈 와플"
+        <img src="./data/tossplace-menu/238090/images/7735937-블루베리-크림치즈-와플-2067253bb0.jpg" alt="클루미유니버스 블루베리 크림치즈 와플"
           class="reviews-visual-thumb lightbox-trigger" loading="lazy">
         <div class="waffle-note">
           <span>Fresh Liege Waffles</span>
@@ -358,17 +358,7 @@
     };
 
     // fetch-toss-menu.mjs 실행 결과 경로 (data/tossplace-menu/238090/menu.json)
-    // 기존 assets/toss-menu/toss-menu.json 는 폴백으로 유지
     const MENU_JSON_PATH = './data/tossplace-menu/238090/menu.json';
-    const MENU_JSON_FALLBACK = './assets/toss-menu/toss-menu.json';
-
-    async function loadMenuJson() {
-      try {
-        const r = await fetch(MENU_JSON_PATH);
-        if (r.ok) return await r.json();
-      } catch (_) { /* fall through */ }
-      return fetch(MENU_JSON_FALLBACK).then(r => r.json());
-    }
 
     function maskReviewAuthor(author) {
       const chars = Array.from(String(author || '').trim());
@@ -378,7 +368,7 @@
     // 병렬 로드
     Promise.all([
       fetch('./data/featured.json').then(r => r.json()),
-      loadMenuJson(),
+      fetch(MENU_JSON_PATH).then(r => r.json()),
       fetch('./data/reviews.json').then(r => r.json()),
       fetch('./data/store-info.json').then(r => r.json())
     ]).then(([featured, menuData, reviews, storeInfo]) => {

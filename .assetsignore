@@ -12,12 +12,11 @@ serve.pid
 
 # Repository-only files
 .assetsignore
-.cfignore
 .gitignore
 README.md
 scripts/
 wrangler.jsonc
 
-# Legacy/generated helper files not used by the site
-assets/toss-menu/toss-menu.md
-assets/toss-menu/toss-menu.csv
+# Menu automation helper files not used by the site
+data/tossplace-menu/*/menu.csv
+data/tossplace-menu/*/state.json

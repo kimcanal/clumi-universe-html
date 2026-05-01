@@ -1,115 +1,90 @@
-# CLUMI UNIVERSE — 웹사이트 관리 가이드
+# CLUMI UNIVERSE 사이트 관리 메모
 
-> 이 문서는 **Antigravity AI**와 함께 웹사이트를 쉽게 관리하는 방법을 설명합니다.
-> 코드를 몰라도 괜찮습니다. 아래 안내대로만 따라오시면 됩니다.
+정적 HTML/CSS 사이트입니다. `main` 브랜치에 푸시하면 Cloudflare에서 자동 배포됩니다.
 
----
+## 자주 수정하는 파일
 
-## 📁 중요한 파일 3개 (여기만 수정하면 됩니다)
+| 파일 | 역할 |
+| --- | --- |
+| `data/featured.json` | 홈페이지 대표 메뉴에 보여줄 토스 메뉴 ID 목록 |
+| `data/reviews.json` | 네이버 리뷰 카드 데이터 |
+| `data/store-info.json` | 주소, 영업시간, 전화번호 |
+| `index.html` | 화면 구조와 데이터 렌더링 |
+| `styles.css` | 디자인과 애니메이션 |
 
-| 파일 | 역할 | 예시 요청 |
-|------|------|----------|
-| `data/featured.json` | 홈페이지 메뉴 섹션에 표시할 메뉴 목록 | "딸기왕창와플 빼고 베리베리와플 넣어줘" |
-| `data/reviews.json` | 손님 리뷰 카드 목록 | "새 리뷰 추가해줘: [리뷰 내용]" |
-| `data/store-info.json` | 주소, 영업시간, 전화번호 | "토요일 영업 시간 11시로 바꿔줘" |
+## 대표 메뉴 바꾸기
 
----
+대표 메뉴는 `data/featured.json`의 숫자 ID 순서대로 표시됩니다.
 
-## 🤖 Antigravity에게 말하는 방법 (예시)
+메뉴 ID는 `data/tossplace-menu/238090/menu.json`의 `items[].id` 값을 사용합니다. 직접 고르기 번거로우면 아래 도우미를 실행합니다.
 
-```
-리뷰 추가:
-  "리뷰 추가해줘. 작성자: 홍길동, 날짜: 2026.05,
-   내용: 와플이 너무 맛있어요! 재방문 의사 100%"
-
-메뉴 변경:
-  "대표 메뉴 섹션에서 '클래식 와플' 빼고
-   '베리베리와플' 추가해줘. 이미지는
-   011-벨기에와플-베리베리와플 써줘"
-
-영업시간 수정:
-  "토요일 영업 시작 시간 11시로 바꿔줘"
-
-변경사항 배포:
-  "변경사항 깃허브에 올려줘"
+```bash
+node scripts/update-menu.mjs
 ```
 
----
+자동 검증용으로는 아래처럼 실행할 수 있습니다.
 
-## 🍽 메뉴 이미지 ID 찾는 방법
+```bash
+node scripts/update-menu.mjs --no-fetch --keep --no-deploy
+```
 
-`assets/toss-menu/images/` 폴더 안에 있는 파일 이름이 그대로 ID입니다.
+## 토스 메뉴 최신화
 
-예: `031-인기-메뉴-no-1-딸기왕창와플.jpg` → ID는 `031-인기-메뉴-no-1-딸기왕창와플`
-
-`data/featured.json` 에 이 ID를 추가하면 홈페이지에 표시됩니다.
-
----
-
-## 🔄 토스 메뉴 새로 받기 (신메뉴 추가됐을 때)
-
-터미널에서 아래 명령어를 실행하세요:
+토스 메뉴 API에서 최신 메뉴와 이미지를 다시 받습니다.
 
 ```bash
 node scripts/fetch-toss-menu.mjs 238090
 ```
 
-실행하면 `data/tossplace-menu/238090/menu.json`과 이미지들이 자동으로 최신화됩니다.
-
-> 이미지 다운로드 없이 메뉴 데이터만 빠르게 받으려면:
-> ```bash
-> node scripts/fetch-toss-menu.mjs 238090 --no-images
-> ```
-
-메뉴 ID는 `data/tossplace-menu/238090/menu.json` 에서 `items[].id` 숫자값을 `data/featured.json`에 넣으면 됩니다.
-
----
-
-## 🚀 변경사항 배포하기
-
-Antigravity에게 "깃허브에 올려줘" 라고 하면 자동으로 해줍니다.
-
-직접 하려면:
+빠르게 데이터만 확인하려면 이미지는 받지 않을 수 있습니다.
 
 ```bash
-git add data/
-git commit -m "내용 업데이트"
-git push
+node scripts/fetch-toss-menu.mjs 238090 --no-images
 ```
 
-→ Cloudflare Pages에서 자동 배포됩니다 (약 1~2분 소요)
+생성되는 주요 파일:
 
----
+| 파일 | 역할 |
+| --- | --- |
+| `data/tossplace-menu/238090/menu.json` | 사이트가 읽는 메뉴 데이터 |
+| `data/tossplace-menu/238090/images/` | 메뉴 이미지 |
+| `data/tossplace-menu/238090/menu.csv` | 사람이 보기 쉬운 메뉴 목록 |
+| `data/tossplace-menu/238090/state.json` | 이미지 중복 다운로드를 줄이는 캐시 |
 
-## 🔗 외부 링크 모음
+`menu.csv`와 `state.json`은 저장소에는 남기지만 배포 자산에서는 제외합니다.
 
-| 서비스 | 링크 | 관리 주체 |
-|--------|------|----------|
-| 토스 픽업 주문 | https://store.tossplace.com/order/238090 | 사장님 |
-| 네이버 플레이스 | https://naver.me/F9hNJomf | 사장님 |
-| 인스타그램 | https://www.instagram.com/clumi.universe/ | 사장님 |
-| Cloudflare (호스팅) | https://dash.cloudflare.com | - |
+## 배포
 
----
-
-## 🗂 파일 구조
-
+```bash
+git status
+git add .
+git commit -m "update: 내용 설명"
+git push origin main
 ```
+
+Cloudflare 빌드는 `wrangler.jsonc`와 `.assetsignore`를 사용합니다. `.git`, 개발 스크립트, README, 캐시 파일은 배포 자산에서 빠집니다.
+
+## 구조
+
+```text
 Clumi/
-├── index.html              ← 홈페이지 (자동 렌더링, 직접 수정 불필요)
-├── styles.css              ← 디자인 스타일
-│
-├── data/                   ★ 여기만 수정하세요
-│   ├── featured.json       ← 메뉴 섹션에 보여줄 메뉴 ID 목록
-│   ├── reviews.json        ← 리뷰 카드 데이터
-│   └── store-info.json     ← 주소, 영업시간, 전화번호
-│
+├── index.html
+├── styles.css
+├── data/
+│   ├── featured.json
+│   ├── reviews.json
+│   ├── store-info.json
+│   └── tossplace-menu/238090/
+│       ├── menu.json
+│       ├── menu.csv
+│       ├── state.json
+│       └── images/
 ├── assets/
-│   ├── bg/                 ← 매장 배경/갤러리 사진
-│   └── toss-menu/
-│       ├── toss-menu.json  ← 토스 전체 메뉴 데이터
-│       └── images/         ← 토스에서 받은 고화질 메뉴 사진들
-│
-└── scripts/
-    └── fetch-menu.js       ← 토스 메뉴 자동 업데이트 스크립트
+│   ├── bg/
+│   ├── characters/
+│   └── clumi-*.jpg/png
+├── scripts/
+│   ├── fetch-toss-menu.mjs
+│   └── update-menu.mjs
+└── wrangler.jsonc
 ```

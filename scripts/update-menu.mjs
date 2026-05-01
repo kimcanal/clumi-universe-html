@@ -5,6 +5,7 @@
  *
  * 사용법:
  *   node scripts/update-menu.mjs
+ *   node scripts/update-menu.mjs --no-fetch --keep --no-deploy
  */
 
 import { execSync } from 'node:child_process';
@@ -18,6 +19,62 @@ const ROOT = path.resolve(__dirname, '..');
 const MENU_JSON = path.join(ROOT, 'data/tossplace-menu/238090/menu.json');
 const FEATURED_JSON = path.join(ROOT, 'data/featured.json');
 const MERCHANT_ID = '238090';
+
+function printHelp() {
+  console.log(`Usage:
+  node scripts/update-menu.mjs [options]
+
+Options:
+  --fetch              토스에서 최신 메뉴를 새로 받습니다.
+  --no-fetch           기존 메뉴 데이터를 사용합니다.
+  --featured <nums>    홈페이지에 표시할 메뉴 번호를 지정합니다. 예: "31,12,14"
+  --keep               현재 featured.json 선택을 유지합니다.
+  --deploy             변경사항을 커밋하고 푸시합니다.
+  --no-deploy          배포를 건너뜁니다.
+  -h, --help           도움말을 표시합니다.
+
+Examples:
+  node scripts/update-menu.mjs
+  node scripts/update-menu.mjs --no-fetch --keep --no-deploy`);
+}
+
+function parseArgs(argv) {
+  const args = {
+    fetch: null,
+    featuredInput: null,
+    keep: false,
+    deploy: null,
+  };
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    if (arg === '--fetch') {
+      args.fetch = true;
+    } else if (arg === '--no-fetch') {
+      args.fetch = false;
+    } else if (arg === '--featured') {
+      args.featuredInput = argv[++index];
+      if (!args.featuredInput) throw new Error('--featured requires a value.');
+    } else if (arg === '--keep') {
+      args.keep = true;
+    } else if (arg === '--deploy') {
+      args.deploy = true;
+    } else if (arg === '--no-deploy') {
+      args.deploy = false;
+    } else if (arg === '--help' || arg === '-h') {
+      printHelp();
+      process.exit(0);
+    } else {
+      throw new Error(`Unknown argument: ${arg}`);
+    }
+  }
+
+  if (args.keep && args.featuredInput) {
+    throw new Error('--keep and --featured cannot be used together.');
+  }
+
+  return args;
+}
 
 // ── 색상 헬퍼 ────────────────────────────────────────────────────
 const c = {
@@ -78,7 +135,13 @@ function parseSelection(input, max) {
 
 // ── 메인 ─────────────────────────────────────────────────────────
 async function main() {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  const args = parseArgs(process.argv.slice(2));
+  let rl = null;
+
+  async function question(prompt) {
+    rl ??= readline.createInterface({ input: process.stdin, output: process.stdout });
+    return rl.question(prompt);
+  }
 
   try {
     console.log('\n' + bold('━'.repeat(60)));
@@ -86,9 +149,9 @@ async function main() {
     console.log(bold('━'.repeat(60)));
 
     // ── STEP 1: fetch 여부 확인 ───────────────────────────────────
-    const doFetch = await rl.question(
-      `\n${cyan('STEP 1')}  토스에서 최신 메뉴를 새로 받을까요? ${dim('(y/n, 기본: y)')} `
-    );
+    const doFetch = args.fetch === null
+      ? await question(`\n${cyan('STEP 1')}  토스에서 최신 메뉴를 새로 받을까요? ${dim('(y/n, 기본: y)')} `)
+      : (args.fetch ? 'y' : 'n');
 
     if (doFetch.trim().toLowerCase() !== 'n') {
       runFetch();
@@ -159,20 +222,29 @@ async function main() {
   ${dim('• 그냥 Enter: 현재 선택 유지')}\n`);
 
     let selectedIndices = null;
-    while (true) {
-      const input = await rl.question(`  ${bold('번호 입력')} > `);
-      if (input.trim() === '') {
-        console.log(dim('  → 현재 선택을 유지합니다.'));
-        selectedIndices = null;
-        break;
+    if (args.keep) {
+      console.log(dim('  → 현재 선택을 유지합니다.'));
+    } else if (args.featuredInput) {
+      selectedIndices = parseSelection(args.featuredInput, Object.keys(indexToId).length);
+      if (selectedIndices === null || selectedIndices.length === 0) {
+        throw new Error(`--featured 값이 올바르지 않습니다. 1~${Object.keys(indexToId).length} 사이의 숫자를 입력하세요.`);
       }
-      selectedIndices = parseSelection(input, Object.keys(indexToId).length);
-      if (selectedIndices === null) {
-        console.log(red(`  잘못된 입력입니다. 1~${Object.keys(indexToId).length} 사이의 숫자를 입력하세요.`));
-      } else if (selectedIndices.length === 0) {
-        console.log(red('  최소 1개 이상 선택해 주세요.'));
-      } else {
-        break;
+    } else {
+      while (true) {
+        const input = await question(`  ${bold('번호 입력')} > `);
+        if (input.trim() === '') {
+          console.log(dim('  → 현재 선택을 유지합니다.'));
+          selectedIndices = null;
+          break;
+        }
+        selectedIndices = parseSelection(input, Object.keys(indexToId).length);
+        if (selectedIndices === null) {
+          console.log(red(`  잘못된 입력입니다. 1~${Object.keys(indexToId).length} 사이의 숫자를 입력하세요.`));
+        } else if (selectedIndices.length === 0) {
+          console.log(red('  최소 1개 이상 선택해 주세요.'));
+        } else {
+          break;
+        }
       }
     }
 
@@ -189,9 +261,9 @@ async function main() {
     }
 
     // ── STEP 4: 배포 ─────────────────────────────────────────────
-    const doDeploy = await rl.question(
-      `\n${cyan('STEP 4')}  깃허브에 올리고 배포할까요? ${dim('(y/n, 기본: n)')} `
-    );
+    const doDeploy = args.deploy === null
+      ? await question(`\n${cyan('STEP 4')}  깃허브에 올리고 배포할까요? ${dim('(y/n, 기본: n)')} `)
+      : (args.deploy ? 'y' : 'n');
 
     if (doDeploy.trim().toLowerCase() === 'y') {
       console.log('\n' + yellow('🚀  배포 중...'));
@@ -214,7 +286,7 @@ async function main() {
     console.log(bold('━'.repeat(60)) + '\n');
 
   } finally {
-    rl.close();
+    rl?.close();
   }
 }
 
