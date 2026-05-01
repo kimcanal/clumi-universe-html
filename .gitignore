@@ -5,3 +5,12 @@ dist/
 
 .git
 .git/
+
+# 크롤링 임시 파일들 (절대 커밋 금지)
+assets/Instagram.html
+assets/Instagram1.html
+assets/Instagram_files/
+assets/Instagram1_files/
+assets/토스\ 픽업주문.html
+assets/토스\ 픽업주문_files/
+assets/클루미유니버스*
