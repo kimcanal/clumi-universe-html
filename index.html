@@ -7,18 +7,23 @@
   <title>CLUMI UNIVERSE | 합정 프리미엄 와플 카페</title>
   <meta name="description" content="합정·상수 사이, 리에주 와플과 파르페를 중심으로 커피를 즐기는 클루미유니버스.">
 
-  <!-- Open Graph for Kakaotalk / Instagram Sharing -->
+  <!-- Open Graph (카카오톡 공유 시 미리보기) — ogImage는 data/store-info.json에서 관리 -->
   <meta property="og:title" content="클루미유니버스 (CLUMI UNIVERSE)">
   <meta property="og:description" content="합정 골목에 숨겨진 작은 우주. 매일 굽는 리에주 와플과 시그니처 파르페를 만나보세요.">
-  <meta property="og:image" content="./assets/bg/6.jpg"> <!-- 대표 이미지 -->
+  <meta property="og:image" content="https://clumi-universe-html.pages.dev/assets/toss-menu/images/031-인기-메뉴-no-1-딸기왕창와플.jpg">
   <meta property="og:type" content="website">
+
+  <!-- 파비콘 -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧇</text></svg>">
 
   <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
 
-  <!-- Header -->
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
   <header class="site-header" id="header">
     <a href="#" class="brand-logo">CLUMI UNIVERSE</a>
     <nav class="nav-links">
@@ -28,9 +33,8 @@
       <a href="#visit">Visit Us</a>
     </nav>
     <div class="header-actions">
-      <a href="https://www.instagram.com/clumi.universe/" target="_blank" rel="noopener noreferrer" class="social-icon"
-        aria-label="Instagram">
-        <!-- SVG Instagram Icon -->
+      <a href="https://www.instagram.com/clumi.universe/" target="_blank" rel="noopener noreferrer"
+        class="social-icon" aria-label="Instagram">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -41,10 +45,11 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
   <section class="hero" id="home">
     <div class="hero-bg">
-      <!-- Using storefront as main vibe -->
       <img src="./assets/bg/6.jpg" alt="클루미유니버스 매장 전경">
     </div>
     <div class="hero-overlay"></div>
@@ -52,7 +57,8 @@
       <h1 class="hero-title">CLUMI <span>UNIVERSE</span></h1>
       <p class="hero-subtitle">합정 골목에 숨겨진 작은 우주.<br>매일 굽는 리에주 와플과 달콤한 파르페를 만나는 공간.</p>
       <div class="hero-buttons">
-        <a href="https://store.tossplace.com/order/238090" target="_blank" rel="noopener noreferrer" class="btn btn-primary">픽업 주문하기</a>
+        <a href="https://store.tossplace.com/order/238090" target="_blank" rel="noopener noreferrer"
+          class="btn btn-primary">픽업 주문하기</a>
         <a href="https://naver.me/F9hNJomf" target="_blank" rel="noopener noreferrer"
           class="btn btn-outline">네이버 리뷰 보기</a>
       </div>
@@ -60,27 +66,30 @@
     <div class="scroll-indicator">Scroll to discover</div>
   </section>
 
-  <!-- About Section -->
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
   <section class="section about" id="about">
     <div class="section-inner about-grid">
       <div class="about-image reveal">
         <img src="./assets/clumi-character-clean.jpg" alt="클루미 캐릭터">
-        <div class="about-badge">
-          Hello!<br>I'm Clumi
-        </div>
+        <div class="about-badge">Hello!<br>I'm Clumi</div>
       </div>
       <div class="about-content reveal">
         <span class="eyebrow">Our Story</span>
         <h2>당신의 일상을 밝히는<br>노란 친구, 클루미</h2>
-        <p>클루미유니버스는 단순한 카페를 넘어, 귀여운 노란색 캐릭터 '클루미'와 함께 따뜻한 기억을 만들어가는 공간입니다. 통유리창 너머로 스며드는 햇살과 향긋한 와플 냄새가 매일 여러분을 반갑게
-          맞이합니다.</p>
+        <p>클루미유니버스는 단순한 카페를 넘어, 귀여운 노란색 캐릭터 '클루미'와 함께 따뜻한 기억을 만들어가는 공간입니다.
+          통유리창 너머로 스며드는 햇살과 향긋한 와플 냄새가 매일 여러분을 반갑게 맞이합니다.</p>
         <p>리에주 와플부터 시그니처 파르페, 그리고 라떼아트까지. 시각과 미각을 모두 만족시키는 디저트 페어링을 경험해 보세요.</p>
         <a href="#visit" class="btn btn-dark" style="margin-top: 1rem;">오시는 길</a>
       </div>
     </div>
   </section>
 
-  <!-- Signature Menu Section -->
+  <!-- ============================================================
+       MENU — data/featured.json + assets/toss-menu/toss-menu.json 으로 렌더링
+       ★ 메뉴를 바꾸려면 data/featured.json 의 ID 목록만 수정하세요.
+       ============================================================ -->
   <section class="section menu" id="menu">
     <div class="section-inner">
       <div class="menu-header reveal">
@@ -89,112 +98,22 @@
         <p class="section-desc" style="margin: 0 auto var(--spacing-lg);">클루미유니버스가 자랑하는 프리미엄 디저트를 소개합니다.</p>
       </div>
 
-      <div class="menu-scroller-wrap">
+      <!-- JS가 여기에 메뉴 카드를 동적으로 삽입합니다 -->
+      <div class="menu-scroller-wrap" id="menuScrollerWrap">
         <button class="scroll-arrow scroll-arrow-prev" id="menuPrev" aria-label="이전">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
         </button>
         <div class="menu-scroller" id="menuScroller">
-          <!-- Menu 1 -->
-          <article class="menu-card reveal">
-            <div class="menu-badge">Best</div>
-            <div class="menu-img-wrap">
-              <img src="./assets/toss-menu/images/031-인기-메뉴-no-1-딸기왕창와플.jpg" alt="딸기왕창와플">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">No.1 Waffle</span>
-              <h3>딸기왕창와플</h3>
-              <p>신선한 설향 딸기를 왕창 올리고 바닐라 아이스크림과 부드러운 크림을 더한 달콤함이 가득한 딸기왕창와플 🍓🍨</p>
-            </div>
-          </article>
-
-          <!-- Menu 2 -->
-          <article class="menu-card reveal" style="transition-delay: 0.1s;">
-            <div class="menu-badge">Signature</div>
-            <div class="menu-img-wrap">
-              <img src="./assets/toss-menu/images/069-삿포로파르페-옐로우-캐슬-파르페.jpg" alt="옐로우 캐슬 파르페">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">Parfait</span>
-              <h3>옐로우 캐슬 파르페</h3>
-              <p>11가지 레이어로 쌓아 올린 애플 망고의 성. 다채로운 맛과 압도적인 비주얼의 시그니처 파르페입니다.</p>
-            </div>
-          </article>
-
-          <!-- Menu 3 -->
-          <article class="menu-card reveal" style="transition-delay: 0.2s;">
-            <div class="menu-img-wrap">
-              <img src="./assets/toss-menu/images/070-케이크-디저트-딸기포레누아.jpg" alt="딸기포레누아">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">Cake</span>
-              <h3>딸기포레누아</h3>
-              <p>상큼한 딸기, 부드러운 우유 크림, 달콤한 화이트 초콜릿이 만나 포근하게 완성된 딸기 케이크 🍓</p>
-            </div>
-          </article>
-
-          <!-- Menu 4 -->
-          <article class="menu-card reveal" style="transition-delay: 0.3s;">
-            <div class="menu-img-wrap">
-              <img src="./assets/toss-menu/images/077-케이크-디저트-버터떡-4개-세트.jpg" alt="버터떡">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">Dessert</span>
-              <h3>버터떡</h3>
-              <p>찹쌀의 쫀득한 식감에 버터의 깊고 고소한 풍미를 더한 요즘 가장 핫한 디저트입니다.</p>
-            </div>
-          </article>
-
-          <!-- Menu 5 -->
-          <article class="menu-card reveal" style="transition-delay: 0.4s;">
-            <div class="menu-badge">Best</div>
-            <div class="menu-img-wrap">
-              <img src="./assets/toss-menu/images/027-인기-메뉴-시그니처-합정라떼.jpg" alt="합정라떼">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">Coffee</span>
-              <h3>합정라떼</h3>
-              <p>깊은 에스프레소에 버터스카치의 달콤함을 더한 부드럽고 풍미 깊은 라떼 ☕</p>
-            </div>
-          </article>
-
-          <!-- Menu 6 -->
-          <article class="menu-card reveal" style="transition-delay: 0.5s;">
-            <div class="menu-img-wrap">
-              <img src="./assets/toss-menu/images/078-케이크-디저트-아이스크림-브라우니.jpg" alt="아이스크림 브라우니">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">Dessert</span>
-              <h3>아이스크림 브라우니</h3>
-              <p>진한 초콜릿 브라우니 위에 바닐라 아이스크림을 올렸어요. 따뜻함과 차가움이 만난 완벽한 조합.</p>
-            </div>
-          </article>
-
-          <!-- Menu 7 -->
-          <article class="menu-card reveal" style="transition-delay: 0.6s;">
-            <div class="menu-img-wrap">
-              <img src="./assets/toss-menu/images/012-벨기에와플-클래식-와플.jpg" alt="클래식 와플">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">Waffle</span>
-              <h3>클래식 와플</h3>
-              <p>천연 펄슈가가 콕콕 박혀있어 오도독한 식감과 고유의 달콤함이 더해진 정통 리에주 와플 🧇</p>
-            </div>
-          </article>
-
-          <!-- Menu 8 -->
-          <article class="menu-card reveal" style="transition-delay: 0.7s;">
-            <div class="menu-img-wrap">
-              <img src="./assets/toss-menu/images/020-클루미-감정포션-클루미-파인애플에이드.jpg" alt="파인애플에이드">
-            </div>
-            <div class="menu-info">
-              <span class="eyebrow">Ade</span>
-              <h3>파인애플에이드</h3>
-              <p>파인애플 과육이 씹히는 기분 좋은 달콤상큼 파인애플 에이드 🍍</p>
-            </div>
-          </article>
+          <!-- 메뉴 카드는 JS가 data/featured.json을 읽어 자동 생성합니다 -->
         </div>
         <button class="scroll-arrow scroll-arrow-next" id="menuNext" aria-label="다음">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </button>
       </div>
 
@@ -208,7 +127,9 @@
     </div>
   </section>
 
-  <!-- Gallery Section -->
+  <!-- ============================================================
+       GALLERY
+       ============================================================ -->
   <section class="section gallery" id="gallery">
     <div class="section-inner">
       <div class="gallery-header reveal">
@@ -232,57 +153,52 @@
           <div class="gallery-overlay"><span>Cozy Interior</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.2s;">
-          <img src="./assets/clumi-waffle.jpg" alt="시그니처 와플">
-          <div class="gallery-overlay"><span>Signature Waffle</span></div>
+          <img src="./assets/toss-menu/images/031-인기-메뉴-no-1-딸기왕창와플.jpg" alt="딸기왕창와플">
+          <div class="gallery-overlay"><span>딸기왕창와플</span></div>
         </div>
         <div class="gallery-item reveal">
           <img src="./assets/bg/4.jpg" alt="따뜻한 분위기">
           <div class="gallery-overlay"><span>Warm Vibe</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.1s;">
-          <img src="./assets/clumi-parfait.jpg" alt="초콜릿 파르페">
-          <div class="gallery-overlay"><span>Sweet Parfait</span></div>
+          <img src="./assets/toss-menu/images/069-삿포로파르페-옐로우-캐슬-파르페.jpg" alt="옐로우 캐슬 파르페">
+          <div class="gallery-overlay"><span>옐로우 캐슬 파르페</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.2s;">
-          <img src="./assets/clumi-latte-art.jpg" alt="라떼 아트">
-          <div class="gallery-overlay"><span>Rabbit Latte Art</span></div>
+          <img src="./assets/toss-menu/images/070-케이크-디저트-딸기포레누아.jpg" alt="딸기포레누아">
+          <div class="gallery-overlay"><span>딸기포레누아</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Trust / Reviews Section -->
+  <!-- ============================================================
+       REVIEWS — data/reviews.json 으로 렌더링
+       ★ 리뷰를 추가/삭제하려면 data/reviews.json 만 수정하세요.
+       ============================================================ -->
   <section class="section reviews" id="reviews" style="background: var(--color-espresso);">
     <div class="section-inner">
       <div class="reviews-header reveal" style="text-align: center; margin-bottom: 3rem;">
-        <div class="blueribon-badge reveal">
+        <div class="blueribon-badge">
           <span style="font-size: 1.5rem;">🎀</span>
           <span>블루리본 서베이 선정 카페</span>
         </div>
         <h2 class="section-title" style="color: #fff; margin-top: 1.5rem;">손님들의 이야기</h2>
         <p class="section-desc" style="color: rgba(255,255,255,0.6);">클루미유니버스를 다녀간 분들의 진솔한 후기입니다.</p>
       </div>
-      <div class="reviews-grid">
-        <blockquote class="review-card reveal">
-          <p>"합정에서 감성 카페를 찾고 있다면, 그리고 예쁘고 맛있는 디저트를 함께 즐기고 싶다면 클루미유니버스 카페는 충분히 만족스러운 선택이었다. 다음에는 다른 디저트 메뉴도 하나씩 도전해보고 싶다."</p>
-          <footer>— 오늘뭐먹지매니아 <cite>· 2026.01</cite></footer>
-        </blockquote>
-        <blockquote class="review-card reveal" style="transition-delay: 0.15s;">
-          <p>"분위기 조용하고 깔끔해서 편하게 머물기 좋은 카페예요. 커피도 맛이 균형 잡혀 있고 디저트도 부담 없이 즐기기 좋았습니다. 근처 오면 다시 방문할 것 같아요!"</p>
-          <footer>— 수디노 <cite>· 2026.01</cite></footer>
-        </blockquote>
-        <blockquote class="review-card reveal" style="transition-delay: 0.3s;">
-          <p>"사장님이 친절하고 메뉴 설명도 자세히 해주며, 감성적인 인테리어와 잔잔한 피아노곡이 나오는 차분한 분위기가 특징입니다. 소파 좌석이 있어 편안하게 머물기 좋습니다."</p>
-          <footer>— 네이버 AI 요약 <cite>· 방문자 리뷰 273개 기반</cite></footer>
-        </blockquote>
-      </div>
+      <!-- JS가 여기에 리뷰 카드를 동적으로 삽입합니다 -->
+      <div class="reviews-grid" id="reviewsGrid"></div>
       <div style="text-align: center; margin-top: 3rem;">
-        <a href="https://naver.me/F9hNJomf" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4);">네이버 리뷰 전체 보기</a>
+        <a href="https://naver.me/F9hNJomf" target="_blank" rel="noopener noreferrer"
+          class="btn btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4);">네이버 리뷰 전체 보기</a>
       </div>
     </div>
   </section>
 
-  <!-- Visit Us Section -->
+  <!-- ============================================================
+       VISIT US — data/store-info.json 으로 렌더링
+       ★ 주소·영업시간·전화번호는 data/store-info.json 만 수정하세요.
+       ============================================================ -->
   <section class="section visit" id="visit">
     <div class="section-inner">
       <div class="visit-grid">
@@ -291,72 +207,35 @@
           <h2 class="section-title">오시는 길</h2>
           <p class="section-desc">합정역과 상수역 사이, 조용한 골목에 위치하고 있습니다.<br>편안한 발걸음으로 클루미유니버스를 찾아주세요.</p>
 
-          <div class="info-list">
-            <div class="info-item">
-              <div class="info-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-              </div>
-              <div class="info-text">
-                <h4>Address</h4>
-                <p>서울 마포구 독막로8길 21, 1층</p>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-              </div>
-              <div class="info-text">
-                <h4>Hours</h4>
-                <p>매일 영업 (연중무휴)<br>평일 09:00 – 23:00<br>토·일 10:30 – 23:00</p>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                </svg>
-              </div>
-              <div class="info-text">
-                <h4>Phone</h4>
-                <p><a href="tel:05071467-1362" style="color: inherit; text-decoration: none;">0507-1467-1362</a></p>
-              </div>
-            </div>
+          <div class="info-list" id="storeInfoList">
+            <!-- JS가 data/store-info.json 읽어 자동 생성 -->
           </div>
 
           <div style="margin-top: 2rem;">
             <a href="https://map.naver.com/p/search/클루미유니버스" target="_blank" rel="noopener noreferrer"
-              class="btn btn-primary" style="margin-right: 1rem;">네이버 지도 열기</a>
+              class="btn btn-primary" id="naverMapBtn">네이버 지도 열기</a>
           </div>
         </div>
 
         <div class="info-card reveal" style="transition-delay: 0.2s; padding:0;">
-          <!-- Map Image or interactive map -->
           <div class="map-container">
-            <!-- Google Map Embed (No API Key required) -->
-            <iframe src="https://maps.google.com/maps?q=클루미유니버스&t=&z=16&ie=UTF8&iwloc=&output=embed" frameborder="0"
-              scrolling="no" marginheight="0" marginwidth="0" style="width: 100%; height: 100%; border: none;"></iframe>
+            <iframe
+              src="https://maps.google.com/maps?q=클루미유니버스&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+              style="width: 100%; height: 100%; border: none;"></iframe>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
   <footer class="site-footer">
     <div class="section-inner">
       <div class="footer-logo">CLUMI UNIVERSE</div>
-      <p style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.5); line-height: 1.8;">
-        서울 마포구 독막로8길 21, 1층 클루미유니버스<br>
-      </p>
+      <p id="footerAddress" style="margin-bottom: 1.5rem; color: rgba(255,255,255,0.5); line-height: 1.8;"></p>
       <div class="footer-links">
         <a href="https://www.instagram.com/clumi.universe/" target="_blank">Instagram</a>
         <a href="https://map.naver.com/p/search/클루미유니버스" target="_blank">Naver Map</a>
@@ -366,87 +245,185 @@
     </div>
   </footer>
 
-  <!-- Mobile CTA -->
+  <!-- ============================================================
+       MOBILE CTA (고정 하단 바)
+       ============================================================ -->
   <div class="mobile-cta">
     <div class="mobile-cta-inner">
+      <a href="https://store.tossplace.com/order/238090" target="_blank" rel="noopener noreferrer"
+        class="btn btn-primary">픽업 주문</a>
       <a href="https://map.naver.com/p/search/클루미유니버스" target="_blank" rel="noopener noreferrer"
-        class="btn btn-primary">매장 길찾기</a>
-      <a href="https://www.instagram.com/clumi.universe/" target="_blank" rel="noopener noreferrer"
-        class="btn btn-dark">인스타그램</a>
+        class="btn btn-dark">매장 길찾기</a>
     </div>
   </div>
 
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
   <script>
-    // Sticky Header
+    // ── 1. Sticky Header ─────────────────────────────────────────
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
+      header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Reveal Animations
-    const reveals = document.querySelectorAll('.reveal');
-    const revealOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
-    };
-
-    const revealOnScroll = new IntersectionObserver(function (entries, observer) {
+    // ── 2. Scroll Reveal ─────────────────────────────────────────
+    const revealObserver = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('active');
-        observer.unobserve(entry.target);
+        obs.unobserve(entry.target);
       });
-    }, revealOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    reveals.forEach(reveal => {
-      revealOnScroll.observe(reveal);
-    });
+    // 정적 요소 즉시 관찰
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Mobile CTA show/hide
+    // ── 3. Mobile CTA 표시/숨김 ──────────────────────────────────
     const mobileCta = document.querySelector('.mobile-cta');
     const hero = document.querySelector('.hero');
-
     window.addEventListener('scroll', () => {
-      if (window.scrollY > hero.offsetHeight * 0.7) {
-        mobileCta.classList.add('is-visible');
-      } else {
-        mobileCta.classList.remove('is-visible');
-      }
+      mobileCta.classList.toggle('is-visible', window.scrollY > hero.offsetHeight * 0.7);
     });
-    // Menu scroller arrows + drag
+
+    // ── 4. Menu Scroller (화살표 + 드래그) ───────────────────────
     const scroller = document.getElementById('menuScroller');
     const btnPrev = document.getElementById('menuPrev');
     const btnNext = document.getElementById('menuNext');
     const SCROLL_AMOUNT = 340;
 
-    btnNext.addEventListener('click', () => {
-      scroller.scrollBy({ left: SCROLL_AMOUNT, behavior: 'smooth' });
+    btnNext.addEventListener('click', () => scroller.scrollBy({ left: SCROLL_AMOUNT, behavior: 'smooth' }));
+    btnPrev.addEventListener('click', () => scroller.scrollBy({ left: -SCROLL_AMOUNT, behavior: 'smooth' }));
+
+    let isDragging = false, dragStartX, dragScrollLeft;
+    scroller.addEventListener('mousedown', e => {
+      isDragging = true;
+      scroller.style.cursor = 'grabbing';
+      dragStartX = e.pageX - scroller.offsetLeft;
+      dragScrollLeft = scroller.scrollLeft;
     });
-    btnPrev.addEventListener('click', () => {
-      scroller.scrollBy({ left: -SCROLL_AMOUNT, behavior: 'smooth' });
+    scroller.addEventListener('mouseleave', () => { isDragging = false; scroller.style.cursor = 'grab'; });
+    scroller.addEventListener('mouseup', () => { isDragging = false; scroller.style.cursor = 'grab'; });
+    scroller.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      e.preventDefault();
+      scroller.scrollLeft = dragScrollLeft - (e.pageX - scroller.offsetLeft - dragStartX) * 1.5;
     });
 
-    // Mouse drag to scroll on desktop
-    let isDown = false, startX, scrollLeft;
-    scroller.addEventListener('mousedown', e => {
-      isDown = true;
-      scroller.style.cursor = 'grabbing';
-      startX = e.pageX - scroller.offsetLeft;
-      scrollLeft = scroller.scrollLeft;
-    });
-    scroller.addEventListener('mouseleave', () => { isDown = false; scroller.style.cursor = 'grab'; });
-    scroller.addEventListener('mouseup', () => { isDown = false; scroller.style.cursor = 'grab'; });
-    scroller.addEventListener('mousemove', e => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - scroller.offsetLeft;
-      scroller.scrollLeft = scrollLeft - (x - startX) * 1.5;
-    });
+    // ── 5. 데이터 로드 및 동적 렌더링 ───────────────────────────
+    // 메뉴 카테고리 라벨 (파일명 앞자리 기반)
+    const CATEGORY_LABEL = {
+      '브런치': 'Brunch', '벨기에와플': 'Waffle', '클루미-감정포션': 'Ade',
+      '인기-메뉴': 'Best', '커피': 'Coffee', '논커피': 'Non-Coffee',
+      '티': 'Tea', '삿포로파르페': 'Parfait', '케이크-디저트': 'Dessert',
+      '에이드': 'Ade', '클루미-굿즈': 'Goods', '병음료': 'Drinks'
+    };
+
+    function getCategoryLabel(id) {
+      for (const [key, label] of Object.entries(CATEGORY_LABEL)) {
+        if (id.includes(key)) return label;
+      }
+      return 'Menu';
+    }
+
+    function getMenuName(item) {
+      return item.name || id.replace(/^\d+-[^-]+-/, '').replace(/-/g, ' ');
+    }
+
+    // 아이콘 SVG 헬퍼
+    const ICON = {
+      location: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
+      clock: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`,
+      phone: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`
+    };
+
+    // 병렬로 세 JSON을 한 번에 로드
+    Promise.all([
+      fetch('./data/featured.json').then(r => r.json()),
+      fetch('./assets/toss-menu/toss-menu.json').then(r => r.json()),
+      fetch('./data/reviews.json').then(r => r.json()),
+      fetch('./data/store-info.json').then(r => r.json())
+    ]).then(([featured, menuData, reviews, storeInfo]) => {
+
+      // ── 5-A. 메뉴 섹션 렌더링 ──────────────────────────────────
+      const menuScroller = document.getElementById('menuScroller');
+      const allItems = menuData.items || menuData;
+
+      // featured ID 목록(localImagePath에 포함된 문자열)으로 매핑
+      const featuredItems = featured.map(id => {
+        const match = allItems.find(item =>
+          (item.localImagePath || '').includes(id)
+        );
+        return match || {
+          title: id.replace(/^\d+-[^-]+-/, '').replace(/-/g, ' '),
+          description: '',
+          categoryEn: 'Menu',
+          localImagePath: `assets/toss-menu/images/${id}.jpg`,
+          labels: []
+        };
+      });
+
+      menuScroller.innerHTML = featuredItems.map((item, i) => {
+        const imgSrc = item.localImagePath || `assets/toss-menu/images/${featured[i]}.jpg`;
+        const name = item.title || featured[i];
+        const desc = item.description || '';
+        const category = item.categoryEn || 'Menu';
+        const delay = i * 0.1;
+        const isBest = (item.labels || []).some(l => (l.name || '').includes('대표') || (l.name || '').includes('인기'));
+        return `
+          <article class="menu-card reveal" style="transition-delay:${delay}s;">
+            ${isBest ? '<div class="menu-badge">Best</div>' : ''}
+            <div class="menu-img-wrap">
+              <img src="./${imgSrc}" alt="${name}" loading="lazy">
+            </div>
+            <div class="menu-info">
+              <span class="eyebrow">${category}</span>
+              <h3>${name}</h3>
+              ${desc ? `<p>${desc}</p>` : ''}
+            </div>
+          </article>`;
+      }).join('');
+
+      menuScroller.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      // ── 5-B. 리뷰 섹션 렌더링 ─────────────────────────────────
+      const reviewsGrid = document.getElementById('reviewsGrid');
+      reviewsGrid.innerHTML = reviews.map((r, i) => `
+        <blockquote class="review-card reveal" style="transition-delay:${i * 0.15}s;">
+          <p>"${r.text}"</p>
+          <footer>— ${r.author} <cite>· ${r.date}</cite></footer>
+        </blockquote>`).join('');
+      reviewsGrid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      // ── 5-C. 매장 정보 렌더링 ─────────────────────────────────
+      const infoList = document.getElementById('storeInfoList');
+      infoList.innerHTML = `
+        <div class="info-item">
+          <div class="info-icon">${ICON.location}</div>
+          <div class="info-text"><h4>Address</h4><p>${storeInfo.address}</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">${ICON.clock}</div>
+          <div class="info-text">
+            <h4>Hours</h4>
+            <p>${storeInfo.hours.note}<br>${storeInfo.hours.weekday}<br>${storeInfo.hours.weekend}</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">${ICON.phone}</div>
+          <div class="info-text">
+            <h4>Phone</h4>
+            <p><a href="tel:${storeInfo.phone}" style="color:inherit;text-decoration:none;">${storeInfo.phone}</a></p>
+          </div>
+        </div>`;
+      infoList.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      // 푸터 주소
+      document.getElementById('footerAddress').textContent = storeInfo.address;
+
+    }).catch(err => console.error('데이터 로드 실패:', err));
   </script>
+
 </body>
 
 </html>
