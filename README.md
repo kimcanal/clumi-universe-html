@@ -17,6 +17,7 @@
 대표 메뉴는 `data/featured.json`의 숫자 ID 순서대로 표시됩니다.
 
 메뉴 ID는 `data/tossplace-menu/238090/menu.json`의 `items[].id` 값을 사용합니다. 직접 고르기 번거로우면 아래 도우미를 실행합니다.
+`인기`, `신규` 탭은 토스오더 메뉴의 `labels` 값을 자동으로 읽어서 표시합니다.
 
 ```bash
 node scripts/update-menu.mjs

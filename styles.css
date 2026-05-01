@@ -603,17 +603,34 @@ ul {
   transform: scale(1.1);
 }
 
-.menu-badge {
+.menu-badge-stack {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  z-index: 2;
+}
+
+.menu-badge {
+  padding: 0.28rem 0.76rem;
+  border-radius: var(--radius-full);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.25;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.16);
+}
+
+.menu-badge-popular {
   background: var(--color-primary);
   color: var(--color-espresso);
-  padding: 0.25rem 1rem;
-  border-radius: var(--radius-full);
-  font-size: 0.875rem;
-  font-weight: 600;
-  z-index: 2;
+}
+
+.menu-badge-new {
+  background: #3182f6;
 }
 
 .menu-info {

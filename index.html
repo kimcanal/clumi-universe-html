@@ -388,6 +388,8 @@
     const MENU_JSON_PATH = './data/tossplace-menu/238090/menu.json';
     const MENU_TABS = [
       { key: 'featured', label: '추천' },
+      { key: 'popular', label: '인기' },
+      { key: 'new', label: '신규' },
       { key: 'waffle', label: '와플' },
       { key: 'brunch', label: '브런치' },
       { key: 'coffee', label: '커피' },
@@ -437,6 +439,27 @@
       return String(typeof label === 'string' ? label : label?.name || label?.title || '');
     }
 
+    function getMenuLabels(item) {
+      return Array.isArray(item?.labels) ? item.labels.map(getLabelName).filter(Boolean) : [];
+    }
+
+    function hasMenuLabel(item, pattern) {
+      return getMenuLabels(item).some(label => pattern.test(label));
+    }
+
+    function normalizeBadgeLabel(label) {
+      if (/신규|new/i.test(label)) return '신규';
+      if (/인기|대표|best/i.test(label)) return '인기';
+      return label;
+    }
+
+    function getMenuBadgeLabels(item) {
+      const labels = getMenuLabels(item)
+        .map(normalizeBadgeLabel)
+        .filter(label => /인기|신규/.test(label));
+      return [...new Set(labels)];
+    }
+
     function normalizeMenuText(item) {
       return `${item?.categoryTitle || ''} ${item?.categoryTitleEn || ''} ${item?.title || ''}`;
     }
@@ -474,6 +497,8 @@
       }
 
       const matchers = {
+        popular: item => hasMenuLabel(item, /인기|대표|best/i) || item?.categoryTitle === '인기 메뉴',
+        new: item => hasMenuLabel(item, /신규|new/i) || /\bnew\b/i.test(String(item?.title || '')),
         waffle: item => /와플|벨기에와플/i.test(normalizeMenuText(item)),
         brunch: item => /브런치/i.test(normalizeMenuText(item)),
         coffee: item => item?.categoryTitle === '커피',
@@ -606,12 +631,14 @@
           const desc = item.description || '';
           const category = item.categoryTitleEn || item.categoryEn || item.categoryTitle || 'Menu';
           const delay = Number((i * 0.06).toFixed(2));
-          const labels = Array.isArray(item.labels) ? item.labels : [];
-          const isBest = labels.some(label => getLabelName(label).match(/인기|대표|best/i));
+          const badges = getMenuBadgeLabels(item);
           const isClumiPick = name.match(/에이드|파르페|라떼|포레누아/);
           return `
             <article class="menu-card reveal" style="transition-delay:${delay}s;">
-              ${isBest ? '<div class="menu-badge">Best</div>' : ''}
+              ${badges.length ? `
+                <div class="menu-badge-stack">
+                  ${badges.map(label => `<div class="menu-badge menu-badge-${label === '신규' ? 'new' : 'popular'}">${escapeHtml(label)}</div>`).join('')}
+                </div>` : ''}
               <div class="menu-img-wrap">
                 <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(name)}" loading="lazy">
               </div>
