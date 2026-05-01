@@ -17,3 +17,6 @@ assets/toss-menu/toss-menu.csv
 
 # Wrangler
 .wrangler/
+
+# 로컬 개발 서버
+serve.pid

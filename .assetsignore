@@ -1,0 +1,23 @@
+# Wrangler Workers Assets ignore list
+
+# Git/build metadata
+.git/
+.wrangler/
+node_modules/
+
+# Local/system files
+.DS_Store
+serve.pid
+*.log
+
+# Repository-only files
+.assetsignore
+.cfignore
+.gitignore
+README.md
+scripts/
+wrangler.jsonc
+
+# Legacy/generated helper files not used by the site
+assets/toss-menu/toss-menu.md
+assets/toss-menu/toss-menu.csv
