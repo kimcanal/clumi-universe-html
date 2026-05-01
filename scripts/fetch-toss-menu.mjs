@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 const API_BASE = 'https://api-public.tossplace.com';
 const STORE_BASE = 'https://store.tossplace.com/order';
 const DEFAULT_OUTPUT_DIR = 'data/tossplace-menu';
+const DEFAULT_MERCHANT_INPUT = '238090';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..');
@@ -38,9 +39,7 @@ function parseArgs(argv) {
     }
   }
 
-  if (!args.merchantInput) {
-    throw new Error('Missing merchant id or Toss order URL.');
-  }
+  args.merchantInput ??= DEFAULT_MERCHANT_INPUT;
 
   if (!Number.isInteger(args.concurrency) || args.concurrency < 1) {
     throw new Error('--concurrency must be a positive integer.');
@@ -51,11 +50,15 @@ function parseArgs(argv) {
 
 function printHelp() {
   console.log(`Usage:
-  node scripts/fetch-toss-menu.mjs <merchant-id-or-url> [--out data/tossplace-menu] [--no-images] [--concurrency 6]
+  node scripts/fetch-toss-menu.mjs [merchant-id-or-url] [--out data/tossplace-menu] [--no-images] [--concurrency 6]
 
 Examples:
+  node scripts/fetch-toss-menu.mjs
   node scripts/fetch-toss-menu.mjs 238090
-  node scripts/fetch-toss-menu.mjs https://store.tossplace.com/order/238090 --concurrency 4`);
+  node scripts/fetch-toss-menu.mjs https://store.tossplace.com/order/238090 --concurrency 4
+
+Default:
+  merchant-id-or-url defaults to ${STORE_BASE}/${DEFAULT_MERCHANT_INPUT}`);
 }
 
 function parseMerchantId(input) {

@@ -43,14 +43,16 @@ node scripts/update-menu.mjs --no-fetch --keep --no-deploy
 토스 메뉴 API에서 최신 메뉴와 이미지를 다시 받습니다.
 
 ```bash
-node scripts/fetch-toss-menu.mjs 238090
+node scripts/fetch-toss-menu.mjs
 ```
 
 빠르게 데이터만 확인하려면 이미지는 받지 않을 수 있습니다.
 
 ```bash
-node scripts/fetch-toss-menu.mjs 238090 --no-images
+node scripts/fetch-toss-menu.mjs --no-images
 ```
+
+인자를 생략하면 클루미유니버스 토스 주문 주소(`https://store.tossplace.com/order/238090`)를 기본값으로 사용합니다. 다른 매장을 테스트할 때만 ID나 URL을 붙이면 됩니다.
 
 생성되는 주요 파일:
 
