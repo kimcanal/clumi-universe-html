@@ -7,11 +7,11 @@
   <title>CLUMI UNIVERSE | 합정 프리미엄 와플 카페</title>
   <meta name="description" content="합정·상수 사이, 리에주 와플과 파르페를 중심으로 커피를 즐기는 클루미유니버스.">
 
-  <!-- Open Graph (카카오톡 공유 시 미리보기) — ogImage는 data/store-info.json에서 관리 -->
+  <!-- Open Graph (카카오톡 공유 시 미리보기) -->
   <meta property="og:title" content="클루미유니버스 (CLUMI UNIVERSE)">
   <meta property="og:description" content="합정 골목에 숨겨진 작은 우주. 매일 굽는 리에주 와플과 시그니처 파르페를 만나보세요.">
   <meta property="og:image"
-    content="https://clumi-universe-html.pages.dev/data/tossplace-menu/238090/images/9820365-No.1-딸기왕창와플-9c9762d20b.jpg">
+    content="https://clumi-universe-html.pages.dev/assets/clumi-waffle.jpg">
   <meta property="og:type" content="website">
 
   <!-- 파비콘 -->
@@ -154,7 +154,7 @@
           <div class="gallery-overlay"><span>Clumi's Universe</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.2s;">
-          <img src="./data/tossplace-menu/238090/images/9820365-No.1-딸기왕창와플-9c9762d20b.jpg" alt="딸기왕창와플" class="lightbox-trigger">
+          <img src="./assets/clumi-waffle.jpg" alt="딸기왕창와플" class="lightbox-trigger" data-menu-image-id="9820365">
           <div class="gallery-overlay"><span>딸기왕창와플</span></div>
         </div>
         <div class="gallery-item reveal">
@@ -166,7 +166,7 @@
           <div class="gallery-overlay"><span>Emotion Potion: Windy</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.2s;">
-          <img src="./data/tossplace-menu/238090/images/10641666-딸기포레누아-12e4b312bd.jpg" alt="딸기포레누아" class="lightbox-trigger">
+          <img src="./assets/clumi-parfait.jpg" alt="딸기포레누아" class="lightbox-trigger" data-menu-image-id="10641666">
           <div class="gallery-overlay"><span>딸기포레누아</span></div>
         </div>
       </div>
@@ -180,10 +180,10 @@
   <section class="section reviews" id="reviews">
     <div class="section-inner reviews-showcase">
       <div class="reviews-visual">
-        <img src="./data/tossplace-menu/238090/images/7735791-클래식-와플-b6d73bbc24.jpg" alt="클루미유니버스 클래식 리에주 와플"
-          class="reviews-visual-main lightbox-trigger" loading="lazy">
-        <img src="./data/tossplace-menu/238090/images/7735937-블루베리-크림치즈-와플-2067253bb0.jpg" alt="클루미유니버스 블루베리 크림치즈 와플"
-          class="reviews-visual-thumb lightbox-trigger" loading="lazy">
+        <img src="./assets/clumi-waffle.jpg" alt="클루미유니버스 클래식 리에주 와플"
+          class="reviews-visual-main lightbox-trigger" loading="lazy" data-menu-image-id="7735791">
+        <img src="./assets/clumi-waffle-menu.jpg" alt="클루미유니버스 블루베리 크림치즈 와플"
+          class="reviews-visual-thumb lightbox-trigger" loading="lazy" data-menu-image-id="7735937">
         <div class="waffle-note">
           <span>Fresh Liege Waffles</span>
           <strong>클래식 · 블루베리 크림치즈</strong>
@@ -365,6 +365,54 @@
       return chars.length ? `${chars[0]}***` : '방문자';
     }
 
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+
+    function formatText(value) {
+      return escapeHtml(value).replace(/\n/g, '<br>');
+    }
+
+    function safeLocalAssetPath(value) {
+      const rawPath = String(value || '').trim();
+      if (!rawPath) return '';
+      if (/^[a-z][a-z\d+.-]*:/i.test(rawPath) || rawPath.startsWith('//')) return '';
+
+      const normalizedPath = rawPath.replace(/^\.\/+/, '');
+      if (normalizedPath.startsWith('/') || normalizedPath.includes('..')) return '';
+
+      return `./${normalizedPath}`;
+    }
+
+    function getMenuImageSrc(item) {
+      return safeLocalAssetPath(item?.imageLocalPath || item?.localImagePath);
+    }
+
+    function findMenuItemById(items, id) {
+      return items.find(item => item.id === id || item.id === Number(id) || String(item.id) === String(id)) || null;
+    }
+
+    function getLabelName(label) {
+      return String(typeof label === 'string' ? label : label?.name || label?.title || '');
+    }
+
+    function syncMenuDrivenImages(items) {
+      document.querySelectorAll('[data-menu-image-id]').forEach(img => {
+        const item = findMenuItemById(items, img.dataset.menuImageId);
+        const src = getMenuImageSrc(item);
+        if (!src) return;
+
+        img.src = src;
+        if (!img.alt && item?.title) img.alt = item.title;
+      });
+    }
+
     // 병렬 로드
     Promise.all([
       fetch('./data/featured.json').then(r => r.json()),
@@ -376,11 +424,13 @@
       // ── 5-A. 메뉴 섹션 렌더링 ──────────────────────────────────
       // fetch-toss-menu.mjs 포맷: items[].id (숫자), items[].imageLocalPath
       // 구 포맷 폴백: items[].localImagePath (문자열 slug)
-      const allItems = menuData.items || [];
+      const allItems = Array.isArray(menuData.items) ? menuData.items : [];
+      const featuredIds = Array.isArray(featured) ? featured : [];
+      syncMenuDrivenImages(allItems);
 
-      const featuredItems = featured.map(id => {
+      const featuredItems = featuredIds.map(id => {
         // 새 포맷: numeric id 매칭
-        const match = allItems.find(item => item.id === id || item.id === Number(id));
+        const match = findMenuItemById(allItems, id);
         if (match) return match;
         // 구 포맷 폴백: slug 문자열 매칭
         return allItems.find(item => (item.localImagePath || '').includes(String(id))) || null;
@@ -389,25 +439,25 @@
       const menuScroller = document.getElementById('menuScroller');
       menuScroller.innerHTML = featuredItems.map((item, i) => {
         // 새 포맷은 imageLocalPath, 구 포맷도 imageLocalPath or localImagePath
-        const imgSrc = item.imageLocalPath || item.localImagePath || '';
+        const imgSrc = getMenuImageSrc(item) || './assets/clumi-waffle.jpg';
         const name = item.title || '메뉴';
         const desc = item.description || '';
         // 새 포맷: categoryTitleEn, 구 포맷: categoryEn
         const category = item.categoryTitleEn || item.categoryEn || item.categoryTitle || 'Menu';
-        const delay = i * 0.1;
-        const isBest = (item.labels || []).some(l =>
-          (typeof l === 'string' ? l : l.name || l.title || '').match(/인기|대표|Best/));
+        const delay = Number((i * 0.1).toFixed(2));
+        const labels = Array.isArray(item.labels) ? item.labels : [];
+        const isBest = labels.some(label => getLabelName(label).match(/인기|대표|best/i));
         const isClumiPick = name.match(/에이드|파르페|라떼|포레누아/);
         return `
           <article class="menu-card reveal" style="transition-delay:${delay}s;">
             ${isBest ? '<div class="menu-badge">Best</div>' : ''}
             <div class="menu-img-wrap">
-              <img src="./${imgSrc}" alt="${name}" loading="lazy">
+              <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(name)}" loading="lazy">
             </div>
             <div class="menu-info">
-              <span class="eyebrow">${category}</span>
-              <h3>${name}${isClumiPick ? '<span class="clumi-badge">🐰 Clumi\'s Pick</span>' : ''}</h3>
-              ${desc ? `<p>${desc}</p>` : ''}
+              <span class="eyebrow">${escapeHtml(category)}</span>
+              <h3>${escapeHtml(name)}${isClumiPick ? '<span class="clumi-badge">🐰 Clumi\'s Pick</span>' : ''}</h3>
+              ${desc ? `<p>${formatText(desc)}</p>` : ''}
             </div>
           </article>`;
       }).join('');
@@ -416,32 +466,40 @@
 
       // ── 5-B. 리뷰 섹션 렌더링 ─────────────────────────────────
       const reviewsGrid = document.getElementById('reviewsGrid');
-      reviewsGrid.innerHTML = reviews.map(r => `
+      const reviewItems = Array.isArray(reviews) ? reviews : [];
+      reviewsGrid.innerHTML = reviewItems.map(r => `
         <blockquote class="review-card">
           <span class="review-source">Naver Review</span>
-          <p>${r.text}</p>
-          <footer><strong>${maskReviewAuthor(r.author)}</strong><cite>${r.date}</cite></footer>
+          <p>${formatText(r.text)}</p>
+          <footer><strong>${escapeHtml(maskReviewAuthor(r.author))}</strong><cite>${escapeHtml(r.date)}</cite></footer>
         </blockquote>`).join('');
 
       // ── 5-C. 매장 정보 렌더링 ─────────────────────────────────
       const infoList = document.getElementById('storeInfoList');
+      const hours = storeInfo.hours || {};
+      const phone = String(storeInfo.phone || '');
+      const phoneHref = phone.replace(/[^\d+]/g, '');
+      const phoneMarkup = phoneHref
+        ? `<a href="tel:${escapeHtml(phoneHref)}" style="color:inherit;text-decoration:none;">${escapeHtml(phone)}</a>`
+        : escapeHtml(phone);
+
       infoList.innerHTML = `
         <div class="info-item">
           <div class="info-icon">${ICON.location}</div>
-          <div class="info-text"><h4>Address</h4><p>${storeInfo.address}</p></div>
+          <div class="info-text"><h4>Address</h4><p>${escapeHtml(storeInfo.address)}</p></div>
         </div>
         <div class="info-item">
           <div class="info-icon">${ICON.clock}</div>
           <div class="info-text">
             <h4>Hours</h4>
-            <p>${storeInfo.hours.note}<br>${storeInfo.hours.weekday}<br>${storeInfo.hours.weekend}</p>
+            <p>${escapeHtml(hours.note)}<br>${escapeHtml(hours.weekday)}<br>${escapeHtml(hours.weekend)}</p>
           </div>
         </div>
         <div class="info-item">
           <div class="info-icon">${ICON.phone}</div>
           <div class="info-text">
             <h4>Phone</h4>
-            <p><a href="tel:${storeInfo.phone}" style="color:inherit;text-decoration:none;">${storeInfo.phone}</a></p>
+            <p>${phoneMarkup}</p>
           </div>
         </div>`;
 
