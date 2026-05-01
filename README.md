@@ -51,10 +51,17 @@
 터미널에서 아래 명령어를 실행하세요:
 
 ```bash
-node scripts/fetch-menu.js
+node scripts/fetch-toss-menu.mjs 238090
 ```
 
-실행하면 `assets/toss-menu/toss-menu.json`과 이미지들이 자동으로 최신화됩니다.
+실행하면 `data/tossplace-menu/238090/menu.json`과 이미지들이 자동으로 최신화됩니다.
+
+> 이미지 다운로드 없이 메뉴 데이터만 빠르게 받으려면:
+> ```bash
+> node scripts/fetch-toss-menu.mjs 238090 --no-images
+> ```
+
+메뉴 ID는 `data/tossplace-menu/238090/menu.json` 에서 `items[].id` 숫자값을 `data/featured.json`에 넣으면 됩니다.
 
 ---
 
