@@ -1,4 +1,18 @@
+# Cloudflare Pages 배포 시 제외할 파일들
+# (빌드 서버에서 이 파일들은 배포 대상에서 제외됨)
+
+# Git 내부 파일 (용량 초과 방지)
 .git/
+
+# 개발 도구
+.wrangler/
+node_modules/
+
+# 크롤링 임시 파일
 assets/Instagram*
+assets/토스*
+assets/클루미유니버스*
+
+# 구버전 데이터 파일
 assets/toss-menu/toss-menu.md
 assets/toss-menu/toss-menu.csv
