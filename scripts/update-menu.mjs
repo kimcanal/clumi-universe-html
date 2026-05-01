@@ -18,6 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const MENU_JSON = path.join(ROOT, 'data/tossplace-menu/238090/menu.json');
 const FEATURED_JSON = path.join(ROOT, 'data/featured.json');
+const HIDDEN_MENU_ITEMS_JSON = path.join(ROOT, 'data/hidden-menu-items.json');
 const MERCHANT_ID = '238090';
 
 function printHelp() {
@@ -133,6 +134,12 @@ function parseSelection(input, max) {
   return indices;
 }
 
+function getHiddenMenuItemIds(hiddenItems) {
+  return new Set((Array.isArray(hiddenItems) ? hiddenItems : [])
+    .map(item => Number(typeof item === 'object' ? item.id : item))
+    .filter(Number.isFinite));
+}
+
 // ── 메인 ─────────────────────────────────────────────────────────
 async function main() {
   const args = parseArgs(process.argv.slice(2));
@@ -175,11 +182,24 @@ async function main() {
       featured = [];
     }
 
+    let hiddenMenuItems;
+    try {
+      hiddenMenuItems = await readJson(HIDDEN_MENU_ITEMS_JSON);
+    } catch {
+      hiddenMenuItems = [];
+    }
+
     const featuredSet = new Set(featured.map(Number));
-    const items = menuData.items || [];
+    const hiddenMenuItemIds = getHiddenMenuItemIds(hiddenMenuItems);
+    const allItems = menuData.items || [];
+    const items = allItems.filter(item => !hiddenMenuItemIds.has(Number(item.id)));
+    const hiddenCount = allItems.length - items.length;
 
     console.log('\n' + hr());
     console.log(bold(`\n  ${cyan('STEP 2')}  전체 메뉴 목록 (총 ${items.length}개)\n`));
+    if (hiddenCount > 0) {
+      console.log(dim(`  → 홈페이지 표시 제외 메뉴 ${hiddenCount}개는 목록에서 숨겼습니다.`));
+    }
     console.log(hr());
 
     // 카테고리별로 그룹화해서 출력

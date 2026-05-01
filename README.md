@@ -7,6 +7,7 @@
 | 파일 | 역할 |
 | --- | --- |
 | `data/featured.json` | 홈페이지 대표 메뉴에 보여줄 토스 메뉴 ID 목록 |
+| `data/hidden-menu-items.json` | 토스 원본에는 남기되 홈페이지 메뉴 카드에서는 숨길 메뉴 ID 목록 |
 | `data/reviews.json` | 네이버 리뷰 카드 데이터 |
 | `data/store-info.json` | 주소, 영업시간, 전화번호, 네이버 지도 링크 |
 | `index.html` | 화면 구조와 데이터 렌더링 |
@@ -18,6 +19,7 @@
 
 메뉴 ID는 `data/tossplace-menu/238090/menu.json`의 `items[].id` 값을 사용합니다. 직접 고르기 번거로우면 아래 도우미를 실행합니다.
 `인기`, `신규` 탭은 토스오더 메뉴의 `labels` 값을 자동으로 읽어서 표시합니다.
+소스나 옵션처럼 홈페이지 메뉴 카드에 어울리지 않는 항목은 `data/hidden-menu-items.json`에 ID를 넣으면 숨겨집니다.
 
 ```bash
 node scripts/update-menu.mjs
@@ -85,6 +87,7 @@ Clumi/
 ├── styles.css
 ├── data/
 │   ├── featured.json
+│   ├── hidden-menu-items.json
 │   ├── reviews.json
 │   ├── store-info.json
 │   └── tossplace-menu/238090/

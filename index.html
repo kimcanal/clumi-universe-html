@@ -386,6 +386,7 @@
 
     // fetch-toss-menu.mjs 실행 결과 경로 (data/tossplace-menu/238090/menu.json)
     const MENU_JSON_PATH = './data/tossplace-menu/238090/menu.json';
+    const HIDDEN_MENU_ITEMS_PATH = './data/hidden-menu-items.json';
     const MENU_TABS = [
       { key: 'featured', label: '추천' },
       { key: 'popular', label: '인기' },
@@ -433,6 +434,22 @@
 
     function findMenuItemById(items, id) {
       return items.find(item => item.id === id || item.id === Number(id) || String(item.id) === String(id)) || null;
+    }
+
+    function fetchJson(path, fallback) {
+      return fetch(path)
+        .then(response => response.ok ? response.json() : fallback)
+        .catch(() => fallback);
+    }
+
+    function getHiddenMenuItemIds(hiddenItems) {
+      return new Set((Array.isArray(hiddenItems) ? hiddenItems : [])
+        .map(item => Number(typeof item === 'object' ? item.id : item))
+        .filter(Number.isFinite));
+    }
+
+    function isHiddenMenuItem(item, hiddenIds) {
+      return hiddenIds.has(Number(item?.id));
     }
 
     function getLabelName(label) {
@@ -589,16 +606,19 @@
 
     // 병렬 로드
     Promise.all([
-      fetch('./data/featured.json').then(r => r.json()),
-      fetch(MENU_JSON_PATH).then(r => r.json()),
-      fetch('./data/reviews.json').then(r => r.json()),
-      fetch('./data/store-info.json').then(r => r.json())
-    ]).then(([featured, menuData, reviews, storeInfo]) => {
+      fetchJson('./data/featured.json', []),
+      fetchJson(MENU_JSON_PATH, { items: [] }),
+      fetchJson(HIDDEN_MENU_ITEMS_PATH, []),
+      fetchJson('./data/reviews.json', []),
+      fetchJson('./data/store-info.json', {})
+    ]).then(([featured, menuData, hiddenItems, reviews, storeInfo]) => {
 
       // ── 5-A. 메뉴 섹션 렌더링 ──────────────────────────────────
       // fetch-toss-menu.mjs 포맷: items[].id (숫자), items[].imageLocalPath
       // 구 포맷 폴백: items[].localImagePath (문자열 slug)
       const allItems = Array.isArray(menuData.items) ? menuData.items : [];
+      const hiddenMenuItemIds = getHiddenMenuItemIds(hiddenItems);
+      const visibleItems = allItems.filter(item => !isHiddenMenuItem(item, hiddenMenuItemIds));
       const featuredIds = Array.isArray(featured) ? featured : [];
       syncMenuDrivenImages(allItems);
 
@@ -608,7 +628,7 @@
         if (match) return match;
         // 구 포맷 폴백: slug 문자열 매칭
         return allItems.find(item => (item.localImagePath || '').includes(String(id))) || null;
-      }).filter(Boolean);
+      }).filter(Boolean).filter(item => !isHiddenMenuItem(item, hiddenMenuItemIds));
 
       const menuScroller = document.getElementById('menuScroller');
       const menuTabs = document.getElementById('menuTabs');
@@ -624,7 +644,7 @@
       }
 
       function renderMenuCards(tabKey) {
-        const tabItems = getMenuTabItems(tabKey, allItems, featuredItems);
+        const tabItems = getMenuTabItems(tabKey, visibleItems, featuredItems);
         menuScroller.innerHTML = tabItems.map((item, i) => {
           const imgSrc = getMenuImageSrc(item) || './assets/clumi-waffle.jpg';
           const name = item.title || '메뉴';
