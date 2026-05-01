@@ -15,8 +15,7 @@
   <meta property="og:type" content="website">
 
   <!-- 파비콘 -->
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧇</text></svg>">
+  <link rel="icon" type="image/png" href="./assets/clumi-character-cutout.png">
 
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -147,27 +146,27 @@
 
       <div class="gallery-grid">
         <div class="gallery-item reveal">
-          <img src="./assets/bg/1.jpg" alt="매장 전경">
+          <img src="./assets/bg/1.jpg" alt="매장 전경" class="lightbox-trigger">
           <div class="gallery-overlay"><span>Our Space</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.1s;">
-          <img src="./assets/bg/3.jpg" alt="아늑한 인테리어">
-          <div class="gallery-overlay"><span>Cozy Interior</span></div>
+          <img src="./assets/characters/clumi-calendar-jan.jpg" alt="클루미 캐릭터" class="lightbox-trigger">
+          <div class="gallery-overlay"><span>Clumi's Universe</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.2s;">
-          <img src="./assets/toss-menu/images/031-인기-메뉴-no-1-딸기왕창와플.jpg" alt="딸기왕창와플">
+          <img src="./assets/toss-menu/images/031-인기-메뉴-no-1-딸기왕창와플.jpg" alt="딸기왕창와플" class="lightbox-trigger">
           <div class="gallery-overlay"><span>딸기왕창와플</span></div>
         </div>
         <div class="gallery-item reveal">
-          <img src="./assets/bg/4.jpg" alt="따뜻한 분위기">
+          <img src="./assets/bg/4.jpg" alt="따뜻한 분위기" class="lightbox-trigger">
           <div class="gallery-overlay"><span>Warm Vibe</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.1s;">
-          <img src="./assets/toss-menu/images/069-삿포로파르페-옐로우-캐슬-파르페.jpg" alt="옐로우 캐슬 파르페">
-          <div class="gallery-overlay"><span>옐로우 캐슬 파르페</span></div>
+          <img src="./assets/characters/clumi-windy-drink.jpg" alt="윈디 포션" class="lightbox-trigger">
+          <div class="gallery-overlay"><span>Emotion Potion: Windy</span></div>
         </div>
         <div class="gallery-item reveal" style="transition-delay: 0.2s;">
-          <img src="./assets/toss-menu/images/070-케이크-디저트-딸기포레누아.jpg" alt="딸기포레누아">
+          <img src="./assets/toss-menu/images/070-케이크-디저트-딸기포레누아.jpg" alt="딸기포레누아" class="lightbox-trigger">
           <div class="gallery-overlay"><span>딸기포레누아</span></div>
         </div>
       </div>
@@ -178,21 +177,51 @@
        REVIEWS — data/reviews.json 으로 렌더링
        ★ 리뷰를 추가/삭제하려면 data/reviews.json 만 수정하세요.
        ============================================================ -->
-  <section class="section reviews" id="reviews" style="background: var(--color-espresso);">
-    <div class="section-inner">
-      <div class="reviews-header reveal" style="text-align: center; margin-bottom: 3rem;">
-        <div class="blueribon-badge">
-          <span style="font-size: 1.5rem;">🎀</span>
-          <span>블루리본 서베이 선정 카페</span>
+  <section class="section reviews" id="reviews">
+    <div class="section-inner reviews-showcase">
+      <div class="reviews-visual">
+        <img src="./assets/toss-menu/images/012-벨기에와플-클래식-와플.jpg" alt="클루미유니버스 클래식 리에주 와플"
+          class="reviews-visual-main lightbox-trigger" loading="lazy">
+        <img src="./assets/toss-menu/images/014-벨기에와플-블루베리-크림치즈-와플.jpg" alt="클루미유니버스 블루베리 크림치즈 와플"
+          class="reviews-visual-thumb lightbox-trigger" loading="lazy">
+        <div class="waffle-note">
+          <span>Fresh Liege Waffles</span>
+          <strong>클래식 · 블루베리 크림치즈</strong>
         </div>
-        <h2 class="section-title" style="color: #fff; margin-top: 1.5rem;">손님들의 이야기</h2>
-        <p class="section-desc" style="color: rgba(255,255,255,0.6);">클루미유니버스를 다녀간 분들의 진솔한 후기입니다.</p>
       </div>
-      <!-- JS가 여기에 리뷰 카드를 동적으로 삽입합니다 -->
-      <div class="reviews-grid" id="reviewsGrid"></div>
-      <div style="text-align: center; margin-top: 3rem;">
-        <a href="https://naver.me/F9hNJomf" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-          style="color: #fff; border-color: rgba(255,255,255,0.4);">네이버 리뷰 전체 보기</a>
+
+      <div class="reviews-content">
+        <div class="blueribon-badge">
+          <span>Blue Ribbon</span>
+          <span>서베이 선정 카페</span>
+        </div>
+        <h2 class="section-title">와플 먹으러 들렀다가<br>오래 머무는 곳</h2>
+        <p class="section-desc">네이버 방문자 리뷰에서 자주 보이는 분위기, 디저트, 친절함에 대한 이야기를 모았습니다.</p>
+
+        <div class="review-highlights" aria-label="리뷰 하이라이트">
+          <div>
+            <strong>Signature</strong>
+            <span>리에주 와플</span>
+          </div>
+          <div>
+            <strong>Mood</strong>
+            <span>조용한 골목 카페</span>
+          </div>
+          <div>
+            <strong>Visit</strong>
+            <span>합정·상수 사이</span>
+          </div>
+        </div>
+
+        <!-- JS가 여기에 리뷰 카드를 동적으로 삽입합니다 -->
+        <div class="reviews-grid" id="reviewsGrid"></div>
+
+        <div class="reviews-actions">
+          <a href="https://naver.me/F9hNJomf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">네이버
+            리뷰 전체 보기</a>
+          <a href="https://store.tossplace.com/order/238090" target="_blank" rel="noopener noreferrer"
+            class="btn btn-primary">와플 픽업 주문</a>
+        </div>
       </div>
     </div>
   </section>
@@ -257,6 +286,15 @@
     </div>
   </div>
 
+  <!-- Interactive Floating Character -->
+  <img src="./assets/clumi-character-cutout.png" alt="클루미" class="floating-clumi">
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" alt="">
+  </div>
+
   <!-- ============================================================
        JAVASCRIPT
        ============================================================ -->
@@ -279,12 +317,17 @@
     // 정적 요소 즉시 관찰
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // ── 3. Mobile CTA 표시/숨김 ──────────────────────────────────
+    // ── 3. Mobile CTA & Floating Clumi 표시/숨김 ──────────────────
     const mobileCta = document.querySelector('.mobile-cta');
+    const floatingClumi = document.querySelector('.floating-clumi');
     const hero = document.querySelector('.hero');
-    window.addEventListener('scroll', () => {
-      mobileCta.classList.toggle('is-visible', window.scrollY > hero.offsetHeight * 0.7);
-    });
+    function syncFixedElements() {
+      const isPastHero = window.scrollY > hero.offsetHeight * 0.7;
+      mobileCta.classList.toggle('is-visible', isPastHero);
+      if (floatingClumi) floatingClumi.classList.toggle('is-visible', isPastHero);
+    }
+    window.addEventListener('scroll', syncFixedElements);
+    syncFixedElements();
 
     // ── 4. Menu Scroller (화살표 + 드래그) ───────────────────────
     const scroller = document.getElementById('menuScroller');
@@ -331,6 +374,11 @@
       return fetch(MENU_JSON_FALLBACK).then(r => r.json());
     }
 
+    function maskReviewAuthor(author) {
+      const chars = Array.from(String(author || '').trim());
+      return chars.length ? `${chars[0]}***` : '방문자';
+    }
+
     // 병렬 로드
     Promise.all([
       fetch('./data/featured.json').then(r => r.json()),
@@ -363,6 +411,7 @@
         const delay = i * 0.1;
         const isBest = (item.labels || []).some(l =>
           (typeof l === 'string' ? l : l.name || l.title || '').match(/인기|대표|Best/));
+        const isClumiPick = name.match(/에이드|파르페|라떼|포레누아/);
         return `
           <article class="menu-card reveal" style="transition-delay:${delay}s;">
             ${isBest ? '<div class="menu-badge">Best</div>' : ''}
@@ -371,7 +420,7 @@
             </div>
             <div class="menu-info">
               <span class="eyebrow">${category}</span>
-              <h3>${name}</h3>
+              <h3>${name}${isClumiPick ? '<span class="clumi-badge">🐰 Clumi\'s Pick</span>' : ''}</h3>
               ${desc ? `<p>${desc}</p>` : ''}
             </div>
           </article>`;
@@ -381,12 +430,12 @@
 
       // ── 5-B. 리뷰 섹션 렌더링 ─────────────────────────────────
       const reviewsGrid = document.getElementById('reviewsGrid');
-      reviewsGrid.innerHTML = reviews.map((r, i) => `
-        <blockquote class="review-card reveal" style="transition-delay:${i * 0.15}s;">
-          <p>"${r.text}"</p>
-          <footer>— ${r.author} <cite>· ${r.date}</cite></footer>
+      reviewsGrid.innerHTML = reviews.map(r => `
+        <blockquote class="review-card">
+          <span class="review-source">Naver Review</span>
+          <p>${r.text}</p>
+          <footer><strong>${maskReviewAuthor(r.author)}</strong><cite>${r.date}</cite></footer>
         </blockquote>`).join('');
-      reviewsGrid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
       // ── 5-C. 매장 정보 렌더링 ─────────────────────────────────
       const infoList = document.getElementById('storeInfoList');
@@ -414,8 +463,26 @@
       document.getElementById('footerAddress').textContent = storeInfo.address;
 
     }).catch(err => console.error('데이터 로드 실패:', err));
-  </script>
 
+    // ── 8. Lightbox ──────────────────────────────────────────────
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.querySelector('.lightbox-close');
+
+    document.querySelectorAll('.lightbox-trigger').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || '';
+        lightbox.classList.add('show');
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('show'));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target !== lightboxImg) lightbox.classList.remove('show');
+    });
+
+  </script>
 </body>
 
 </html>
