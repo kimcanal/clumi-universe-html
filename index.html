@@ -445,8 +445,33 @@
       return !item?.state || item.state === 'ON_SALE';
     }
 
+    function isDisplayVariantDuplicate(item) {
+      const title = String(item?.title || '');
+      return /\(2인\)/.test(title) || /\(4개\s*세트\)/.test(title);
+    }
+
+    function getDisplayDedupeKey(item) {
+      return String(item?.title || '')
+        .replace(/\[[^\]]+\]/g, '')
+        .replace(/\([^)]*(?:인|개\s*세트)[^)]*\)/g, '')
+        .replace(/[^\p{L}\p{N}]+/gu, '')
+        .toLowerCase();
+    }
+
+    function dedupeDisplayMenuItems(items) {
+      const seen = new Set();
+      return items.filter(item => {
+        const key = getDisplayDedupeKey(item);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
     function getMenuTabItems(tabKey, allItems, featuredItems) {
-      if (tabKey === 'featured') return featuredItems;
+      if (tabKey === 'featured') {
+        return dedupeDisplayMenuItems(featuredItems.filter(item => !isDisplayVariantDuplicate(item)));
+      }
 
       const matchers = {
         waffle: item => /와플|벨기에와플/i.test(normalizeMenuText(item)),
@@ -457,9 +482,10 @@
       };
 
       const matcher = matchers[tabKey] || (() => true);
-      return allItems
+      return dedupeDisplayMenuItems(allItems
         .filter(item => isMenuAvailable(item) && matcher(item))
-        .filter(item => getMenuImageSrc(item))
+        .filter(item => !isDisplayVariantDuplicate(item))
+        .filter(item => getMenuImageSrc(item)))
         .slice(0, 12);
     }
 
