@@ -2708,14 +2708,14 @@
       "updatedAt": "2026-07-21T04:15:20.254Z"
     },
     "10683603": {
-      "fingerprint": "7319b451a1febe6410207ac2bdd202e3acfb54f04a349626b423148d9d5ea461",
+      "fingerprint": "608514277baca9b15c1440196b67fd3a76d9ed32541bd0e3697372ca7e4e8105",
       "title": "[피스타치오] 초코 반하나 와플",
       "description": "앵커 버터로 만든 겉바속쫀 리에주 와플에 바나나, 생크림, 초코소스, 피스타치오를 올린 클루미 시그니처 와플. 한 입에 반해버릴지도 몰라요.",
       "imageUrl": "https://place-static.tossplace.com/public/live/PUBLIC/2026-05-09/59d70125-6af4-4c19-a4c7-31c8f4d0eb00",
       "imageLocalPath": "data/tossplace-menu/238090/images/10683603-피스타치오-초코-반하나-와플-87f8a2942f.jpg",
       "imageHash": "87f8a2942f2b5a6231dcf3474d72da5a0a7ddb0f9fcc603bdca0a39d9a4f5a0d",
       "firstSeenAt": "2026-07-21T04:15:20.254Z",
-      "updatedAt": "2026-09-05T22:24:17.927Z"
+      "updatedAt": "2026-09-08T23:01:40.222Z"
     },
     "10686488": {
       "fingerprint": "5ff430b9f2a592bcb32ac095b827bf1e4c3eaef0e1816f60855557551c011464",
@@ -2868,14 +2868,14 @@
       "updatedAt": "2026-08-29T22:52:03.755Z"
     },
     "13137641": {
-      "fingerprint": "be994b78c4f88d25fd52ffa3a2682a47f2f5d49bde6bea48afeacb0c9cf1dfc5",
+      "fingerprint": "73bf1120dc3b3a48b402629a9e04ba167e31acea7974c4c26cd2d049eaf9a3a4",
       "title": "[피스타치오]초코 반하나와플",
       "description": "\"한 입 먹으면 정말 반할지도 몰라요!\"\n앵커 버터로 만든 겉바속쫀 리에주 와플에 바나나, 생크림, 초코소스, 피스타치오를 올린 클루미 시그니처 와플.",
       "imageUrl": "https://place-static.tossplace.com/public/live/PUBLIC/2026-05-09/ae7594c4-fb11-480f-a5c1-aeab9a2032d9",
       "imageLocalPath": "data/tossplace-menu/238090/images/10683603-피스타치오-초코-반하나-와플-87f8a2942f.jpg",
       "imageHash": "87f8a2942f2b5a6231dcf3474d72da5a0a7ddb0f9fcc603bdca0a39d9a4f5a0d",
       "firstSeenAt": "2026-07-21T04:15:20.254Z",
-      "updatedAt": "2026-09-05T22:24:17.927Z"
+      "updatedAt": "2026-09-08T23:01:40.222Z"
     },
     "13541356": {
       "fingerprint": "efa5c0ed1f2f07ab9baee6002708fc101fef30c14fbcbd5475fe687f273e62dc",
@@ -3039,20 +3039,6 @@
     }
   },
   "runs": [
-    {
-      "at": "2026-05-01T03:23:59.795Z",
-      "summary": {
-        "total": 96,
-        "added": 0,
-        "changed": 1,
-        "unchanged": 95,
-        "removed": 0
-      },
-      "imageSummary": {
-        "downloaded": 91,
-        "skipped-existing-hash": 5
-      }
-    },
     {
       "at": "2026-05-01T11:08:52.497Z",
       "summary": {
@@ -3330,7 +3316,21 @@
         "skipped-existing-url": 87,
         "failed-http-timeout": 1
       }
+    },
+    {
+      "at": "2026-09-08T23:01:40.222Z",
+      "summary": {
+        "total": 88,
+        "added": 0,
+        "changed": 2,
+        "unchanged": 86,
+        "removed": 0
+      },
+      "imageSummary": {
+        "skipped-existing-url": 87,
+        "failed-http-timeout": 1
+      }
     }
   ],
-  "lastRunAt": "2026-09-06T22:29:46.157Z"
+  "lastRunAt": "2026-09-08T23:01:40.222Z"
 }
