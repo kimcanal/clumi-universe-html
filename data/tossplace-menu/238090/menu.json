@@ -2,12 +2,12 @@
   "merchantId": 238090,
   "merchantName": "클루미 유니버스",
   "merchantStatus": "OPEN",
-  "fetchedAt": "2026-09-08T23:01:40.222Z",
+  "fetchedAt": "2026-09-09T22:48:43.037Z",
   "summary": {
     "total": 88,
     "added": 0,
-    "changed": 2,
-    "unchanged": 86,
+    "changed": 7,
+    "unchanged": 81,
     "removed": 0
   },
   "imageSummary": {
@@ -1348,7 +1348,7 @@
             {
               "id": 971773,
               "title": "시나몬 추가",
-              "priceValue": 300,
+              "priceValue": 500,
               "state": "ON_SALE"
             },
             {
@@ -1378,7 +1378,7 @@
           ]
         }
       ],
-      "fingerprint": "b7b6df822e4eb14f3c0ad91a9857520e2e431e2af1228936a4879ba7f753e9e4",
+      "fingerprint": "cba2d1d98c85a3a8326e53792c7d2ef4b5d0ae2dc57a15c332fea755fe7b3edb",
       "imageLocalPath": "data/tossplace-menu/238090/images/15684896-무화과-크림치즈-와플-db8948e195.jpg",
       "imageHash": "db8948e19509607d714b22e93137437cd66de1ae1b6cea0b2d0b8fb586cac9f4",
       "imageStatus": "skipped-existing-url"
@@ -3741,7 +3741,7 @@
             {
               "id": 971773,
               "title": "시나몬 추가",
-              "priceValue": 300,
+              "priceValue": 500,
               "state": "ON_SALE"
             },
             {
@@ -3807,7 +3807,7 @@
           ]
         }
       ],
-      "fingerprint": "25c25b2ab3160f1ab033d810437e5d140c87f42e11c2e690594f5445a841053b",
+      "fingerprint": "31a42c9c7251ea1d4918cc8660af34a3e7c884e15b8be3cb039f1214db02ceab",
       "imageLocalPath": "data/tossplace-menu/238090/images/7735791-클래식-와플-e996468283.jpg",
       "imageHash": "e996468283edb35712f6108cc2152d0afea2abd7e94734a065e9cfff7aed14e1",
       "imageStatus": "skipped-existing-url"
@@ -3861,7 +3861,7 @@
             {
               "id": 971773,
               "title": "시나몬 추가",
-              "priceValue": 300,
+              "priceValue": 500,
               "state": "ON_SALE"
             },
             {
@@ -3912,7 +3912,7 @@
           ]
         }
       ],
-      "fingerprint": "f85440bcd86f1a111ee9bc879ccaeedf3eaa96a8adb28b73cc03f71417b35d63",
+      "fingerprint": "019620869c84cb52bdff7b4a3103aee866d9913259eca6ed32d229d2ebacc910",
       "imageLocalPath": "data/tossplace-menu/238090/images/7735937-블루베리-크림치즈-와플-32131784ad.jpg",
       "imageHash": "32131784ada4511e43e0d64f09c2537f0933d80517a7fe28166c1ae3122af90d",
       "imageStatus": "skipped-existing-url"
@@ -3964,7 +3964,7 @@
             {
               "id": 971773,
               "title": "시나몬 추가",
-              "priceValue": 300,
+              "priceValue": 500,
               "state": "ON_SALE"
             },
             {
@@ -4030,7 +4030,7 @@
           ]
         }
       ],
-      "fingerprint": "d0b3be0b33bbdbc17430938ee5d4377f233dd7ea6a2fe170abb19814ab3d4d8f",
+      "fingerprint": "47257b0756dddad6b1f988b676a1532afce08c54d716c231ea0c59731564cb55",
       "imageLocalPath": "data/tossplace-menu/238090/images/7735910-저당-메이플-시나몬-와플-1795427119.jpg",
       "imageHash": "17954271198c05fedd3d4a176b730718dd0085c632ed10ca45f9d604901331ad",
       "imageStatus": "skipped-existing-url"
@@ -4084,7 +4084,7 @@
             {
               "id": 971773,
               "title": "시나몬 추가",
-              "priceValue": 300,
+              "priceValue": 500,
               "state": "ON_SALE"
             },
             {
@@ -4135,7 +4135,7 @@
           ]
         }
       ],
-      "fingerprint": "f8919b86fc3a423c5b8e4a9a851534a0bf9faa3b5f0597d186afdf1259a3cb11",
+      "fingerprint": "8fedbefec65237d5412c15ab07fc8efb37934bddd7c1ba663a16c88a7e624475",
       "imageLocalPath": "data/tossplace-menu/238090/images/7736391-애플잼-와플-8d65b9a46f.jpg",
       "imageHash": "8d65b9a46f1c183f11ecff2102e5a0df694e601a435f30fb3d4a04819259a8d0",
       "imageStatus": "skipped-existing-url"
@@ -4283,7 +4283,7 @@
             {
               "id": 971773,
               "title": "시나몬 추가",
-              "priceValue": 300,
+              "priceValue": 500,
               "state": "ON_SALE"
             },
             {
@@ -4334,7 +4334,7 @@
           ]
         }
       ],
-      "fingerprint": "f7e79a26420aea36f86ad8c55ab9b3a676166673c001923accc60a7ce6c53eb2",
+      "fingerprint": "fe03e0380d4f8c1ad5afe11ba410c751609394602751f8397dab400da59b50b1",
       "imageLocalPath": "data/tossplace-menu/238090/images/7853022-클래식-와플-커피-세트-77e6926988.jpg",
       "imageHash": "77e69269885364d3986b8716967fb7e60ee71b0f2cca317e6d9223975750dcaa",
       "imageStatus": "skipped-existing-url"
@@ -4386,7 +4386,7 @@
             {
               "id": 971773,
               "title": "시나몬 추가",
-              "priceValue": 300,
+              "priceValue": 500,
               "state": "ON_SALE"
             },
             {
@@ -4416,7 +4416,7 @@
           ]
         }
       ],
-      "fingerprint": "01fe4f9f4439a6478c4b462ffe137ba7a39720a377f9c0fbbbfa45b52a9d8be2",
+      "fingerprint": "9ff17e513aaf90f4d34d919ac08d2b0d2bd976de83243d33464ad2af49f49209",
       "imageLocalPath": "data/tossplace-menu/238090/images/7965785-와플-3개팩-2e0099ae98.png",
       "imageHash": "2e0099ae9860055c9306bcf14e8f51eb53107f525516a972a87fcfbacc9308a1",
       "imageStatus": "skipped-existing-url"
